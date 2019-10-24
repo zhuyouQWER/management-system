@@ -1,6 +1,11 @@
 package com.zhj.service;
 
+import com.zhj.model.Jurisdiction;
 import com.zhj.model.User;
+import com.zhj.model.Users;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author ： 朱福
@@ -10,9 +15,18 @@ import com.zhj.model.User;
  * @version:
  */
 public interface UserService {
-    User QueryUser(User user);
 
-    void AddUser(User user);
+    void Update(Integer id);
 
-    void Add(String time);
+    List<Jurisdiction> Tree(Integer id);
+
+    User LoginUser(User user);
+
+    Map QueryUser(Integer page, Integer rows, Users u);
+
+    void AddUser(Users u);
+
+    List<Users> Query(Integer id);
+
+    void UpdateUser(Users u);
 }

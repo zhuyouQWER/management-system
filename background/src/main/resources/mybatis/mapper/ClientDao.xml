@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhj.dao.ClientDao" >
-
+  <insert id="Add">
+      insert into client(id,province,customername,typeid,trader,traderphone,salesman,salescalls,agent,agentnumber) values()
+  </insert>
+  <update id="Update">
+      update  client set province=#{province},customername=#{customername},typeid=#{typeid},trader=#{trader},traderphone=#{traderphone},salesman=#{salesman},salescalls=#{salescalls},agent=#{agent},agentnumber=#{agentnumber}
+  </update>
+  <delete id="Delete">
+      delete  from  client where id=#{id}
+  </delete>
+    <delete id="BaseDelete">
+        delete from  client where id in(#{id})
+    </delete>
 </mapper>

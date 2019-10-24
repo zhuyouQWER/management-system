@@ -1,6 +1,11 @@
 package com.zhj.dao;
 
+import com.zhj.model.Jurisdiction;
 import com.zhj.model.User;
+import com.zhj.model.Users;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author ： 朱福
@@ -10,6 +15,20 @@ import com.zhj.model.User;
  * @version:
  */
 public interface UserDao {
-    User QueryUser(User user);
 
+
+    void Update(@Param("id") Integer id, @Param("time") String time);
+
+    List<Jurisdiction> Tree(Integer id);
+
+    User LoginUser(User user);
+
+
+    Integer Total(Users u);
+
+    void AddUser(Users u);
+
+    List<Users> Query(Integer id);
+
+    void UpdateUser(Users u);
 }

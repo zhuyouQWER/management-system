@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhj.dao.UserDao" >
-  <select id="QueryUser" resultType="com.zhj.model.User">
-  select  *  from  user where cellphone=#{cellphone} and password=#{password}
+  <select id="LoginUser" resultType="com.zhj.model.User">
+  select  *  from  user where username=#{username} and password=#{password}
   </select>
-   <insert id="AddUser">
+ <update id="Update">
+    update  users set thistime=#{time} where id=#{id}
+ </update>
+    <select id="Tree" resultType="com.zhj.model.Jurisdiction">
+     select j.* from user u, user_role s, role r,role_jurisdiction o,jurisdiction j where u.id=s.userid and r.roleid=s.roleid and o.roleid=s.roleid and o.jurisdictionid=j.id and u.id=#{id}
+    </select>
+    <select id="Total" resultType="java.lang.Integer">
+        select count(*) from users u,type t where u.id=t.id
+    </select>
+    <insert id="AddUser">
+        insert  into  users(id,calculate,name,cellphone,typeid,enterprise,password,thistime,lasttime,status) values(#{calculate},#{name},#{cellphone},#{typeid},#{enterprise},#{password},#{status})
+    </insert>
+    <select id="Query" resultType="com.zhj.model.Users">
+        select  * from  users where id=#{id}
+    </select>
+    <update id="UpdateUser">
+        update users set calculate=#{calculate},name=#{name},cellphone=#{cellphone},typeid=#{typeid},#{enterprise},#{password}
+    </update>
 
-   </insert>
-  <insert id="Add">
-
-  </insert>
 </mapper>
