@@ -12,7 +12,4 @@ import com.zhj.model.User;
 public interface UserDao {
     User QueryUser(User user);
 
-    void AddUser(User user);
-
-    void Add(String time);
 }
