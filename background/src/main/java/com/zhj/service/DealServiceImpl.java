@@ -2,8 +2,14 @@ package com.zhj.service;
 
 import com.zhj.dao.DealDao;
 import com.zhj.model.Deal;
+import com.zhj.model.Users;
+import com.zhj.util.ParamUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author ： 朱福
@@ -30,5 +36,21 @@ public class DealServiceImpl implements DealService{
     @Override
     public void Delete(Integer id) {
         dealDao.Delete(id);
+    }
+
+    @Override
+    public void BatchDelete(String[] id) {
+        dealDao.BatchDelete(id);
+    }
+
+    @Override
+    public Map Query(ParamUtil param) {
+        Integer total=dealDao.Total(param);
+        Integer page=(param.getPage()-1)*param.getRows();
+        List<Users> users=dealDao.Query(page,param.getRows(),param);
+        Map ma=new HashMap();
+        ma.put("total",total);
+        ma.put("rows",users);
+        return ma;
     }
 }

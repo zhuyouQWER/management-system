@@ -2,10 +2,14 @@ package com.zhj.controller;
 
 import com.zhj.model.Deal;
 import com.zhj.service.DealService;
+import com.zhj.util.ParamUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 /**
  * @author ： 朱福
@@ -29,11 +33,22 @@ public class DealController {
             dealService.Update(d);
         }
     }
-    //力交易结算删除
+    //电力交易结算删除
     @RequestMapping("Delete")
     @ResponseBody
     public void Delete(Integer id){
         dealService.Delete(id);
     }
-
+    //电力交易结算批删
+    @RequestMapping("BatchDelete")
+    @ResponseBody
+    public void BatchDelete(String [] id){
+        dealService.BatchDelete(id);
+    }
+    //电力交易结算查询
+    @RequestMapping("Query")
+    @ResponseBody
+    public Map Query(@RequestBody ParamUtil param){
+        return  dealService.Query(param);
+    }
 }

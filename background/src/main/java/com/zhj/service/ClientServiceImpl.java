@@ -2,8 +2,11 @@ package com.zhj.service;
 
 import com.zhj.dao.ClientDao;
 import com.zhj.model.Client;
+import com.zhj.util.ParamUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * @author ： 朱福
@@ -36,5 +39,7 @@ public class ClientServiceImpl implements ClientService {
     public void BaseDelete(String[] id) {
       clientDao.BaseDelete(id);
     }
+
+
 
 }

@@ -28,7 +28,9 @@ public class Declare implements Serializable {
     private  String samemoth; //同去年相同月相比
     private  String explain; //补充说明
     private  Integer status; //状态  1是已申报  2是未申报   3是未开始
-
+    private  Integer usersid;
+    private  String  name;//公众号名称
+    private String calculate;//公众号账号
     public Integer getId() {
         return id;
     }
@@ -101,6 +103,30 @@ public class Declare implements Serializable {
         this.status = status;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCalculate() {
+        return calculate;
+    }
+
+    public void setCalculate(String calculate) {
+        this.calculate = calculate;
+    }
+
+    public Integer getUsersid() {
+        return usersid;
+    }
+
+    public void setUsersid(Integer usersid) {
+        this.usersid = usersid;
+    }
+
     @Override
     public String toString() {
         return "Declare{" +
@@ -113,6 +139,9 @@ public class Declare implements Serializable {
                 ", samemoth='" + samemoth + '\'' +
                 ", explain='" + explain + '\'' +
                 ", status=" + status +
+                ", usersid=" + usersid +
+                ", name='" + name + '\'' +
+                ", calculate='" + calculate + '\'' +
                 '}';
     }
 }

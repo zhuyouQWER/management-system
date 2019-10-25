@@ -1,6 +1,9 @@
 package com.zhj.service;
 
 import com.zhj.model.Client;
+import com.zhj.util.ParamUtil;
+
+import java.util.Map;
 
 /**
  * @author ： 朱福
@@ -17,4 +20,6 @@ public interface ClientService {
     void Delete(Integer id);
 
     void BaseDelete(String[] id);
+
+
 }

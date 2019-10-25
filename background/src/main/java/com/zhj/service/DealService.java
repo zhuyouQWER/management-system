@@ -1,6 +1,9 @@
 package com.zhj.service;
 
 import com.zhj.model.Deal;
+import com.zhj.util.ParamUtil;
+
+import java.util.Map;
 
 /**
  * @author ： 朱友
@@ -15,4 +18,9 @@ public interface DealService {
     void Update(Deal d);
 
     void Delete(Integer id);
+
+    void BatchDelete(String[] id);
+
+
+    Map Query(ParamUtil param);
 }

@@ -3,6 +3,7 @@ package com.zhj.service;
 import com.zhj.model.Jurisdiction;
 import com.zhj.model.User;
 import com.zhj.model.Users;
+import com.zhj.util.ParamUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -22,11 +23,29 @@ public interface UserService {
 
     User LoginUser(User user);
 
-    Map QueryUser(Integer page, Integer rows, Users u);
-
     void AddUser(Users u);
 
     List<Users> Query(Integer id);
 
     void UpdateUser(Users u);
+
+    List<Users> Login(Integer id);
+
+    Users LoginUsers(Users users);
+
+    Map QueryUser(ParamUtil param);
+
+    Map Users(ParamUtil param);
+
+    void add(User u);
+
+    void update(User u);
+
+    void delete(Integer id);
+
+    void Delete(Integer id);
+
+    void BatchDelete(String[] id);
+
+    Map QueryRole(ParamUtil param);
 }

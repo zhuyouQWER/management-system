@@ -1,6 +1,10 @@
 package com.zhj.service;
 
 import com.zhj.model.Declare;
+import com.zhj.util.ParamUtil;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author ： 朱友
@@ -15,4 +19,10 @@ public interface ManageService {
     void Update(Declare d);
 
     void Delete(Integer id);
+
+    Map Query(ParamUtil param);
+
+    void BatchDelete(String[] id);
+
+    List<Declare> query(Integer id);
 }

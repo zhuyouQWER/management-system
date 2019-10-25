@@ -1,6 +1,11 @@
 package com.zhj.dao;
 
 import com.zhj.model.Deal;
+import com.zhj.model.Users;
+import com.zhj.util.ParamUtil;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author ： 朱友
@@ -15,4 +20,10 @@ public interface DealDao {
     void Update(Deal d);
 
     void Delete(Integer id);
+
+    void BatchDelete(String[] id);
+
+    Integer Total(ParamUtil param);
+
+    List<Users> Query(@Param("page") Integer page,@Param("rows") Integer rows,@Param("p") ParamUtil param);
 }

@@ -28,9 +28,10 @@ public class Users implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 处理从	前端到后端的时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")// 处理从	后端到前端的时间
     private  Date lasttime;//最后登陆时间
-
     private  Integer  status;//是否启用 1是启用  2是不启用
     private  String typename;//类型名称(零时使用字段)
+
+    private  Integer accountstatus;//账号状态
 
     public String getTypename() {
         return typename;
@@ -121,6 +122,14 @@ public class Users implements Serializable {
         this.enterprise = enterprise;
     }
 
+    public Integer getAccountstatus() {
+        return accountstatus;
+    }
+
+    public void setAccountstatus(Integer accountstatus) {
+        this.accountstatus = accountstatus;
+    }
+
     @Override
     public String toString() {
         return "Users{" +
@@ -135,6 +144,7 @@ public class Users implements Serializable {
                 ", lasttime=" + lasttime +
                 ", status=" + status +
                 ", typename='" + typename + '\'' +
+                ", accountstatus=" + accountstatus +
                 '}';
     }
 }

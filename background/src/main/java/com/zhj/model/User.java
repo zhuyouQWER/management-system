@@ -25,6 +25,10 @@ public class User implements Serializable {
     private Date thistime;//本次登录时间
     private  Date  lasttime;//最后登录时间
     private  String  region;//登陆地址
+    private  Integer accountstatus;//账号状态
+    private  Integer departmentid;//部门关联id
+    private  String department;//部门名称(零时字段)
+    private  String rolename;//角色名称(零时字段)
 
     public Date getThistime() {
         return thistime;
@@ -81,6 +85,38 @@ public class User implements Serializable {
         this.region = region;
     }
 
+    public Integer getAccountstatus() {
+        return accountstatus;
+    }
+
+    public void setAccountstatus(Integer accountstatus) {
+        this.accountstatus = accountstatus;
+    }
+
+    public Integer getDepartmentid() {
+        return departmentid;
+    }
+
+    public void setDepartmentid(Integer departmentid) {
+        this.departmentid = departmentid;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getRolename() {
+        return rolename;
+    }
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -91,6 +127,10 @@ public class User implements Serializable {
                 ", thistime=" + thistime +
                 ", lasttime=" + lasttime +
                 ", region='" + region + '\'' +
+                ", accountstatus=" + accountstatus +
+                ", departmentid=" + departmentid +
+                ", department='" + department + '\'' +
+                ", rolename='" + rolename + '\'' +
                 '}';
     }
 }

@@ -22,5 +22,52 @@
     <update id="UpdateUser">
         update users set calculate=#{calculate},name=#{name},cellphone=#{cellphone},typeid=#{typeid},#{enterprise},#{password}
     </update>
-
+ <select id="Login" resultType="com.zhj.model.Users">
+ select  * from users u,department d where d.id=u.departmentid and u.id=#{id}
+ </select>
+    <select id="LoginUsers" resultType="com.zhj.model.Users">
+ select * from users where password=#{password} and calculate=#{calculate}
+  union
+select * from users where password=#{password} and cellphone=#{cellphone}
+    </select>
+    <select id="QueryUser" resultType="com.zhj.model.Users">
+         select * from users u,type t where  u.typeid=t.id
+        <if test="p.enterprise!=null and p.enterprise != ''">
+          and u.enterprise like  CONCAT('%',#{p.enterprise},'%')
+        </if>
+        <if test="p.name!=null and p.name!=''">
+        and  u.name like   CONCAT('%',#{p.name},'%')
+        </if>
+        <if test="p.status!=null and p.status !=0">
+       and  u.status=#{p.status}
+        </if>
+        limit #{page},#{rows}
+    </select>
+    <select id="query" resultType="com.zhj.dao.UserDao.query">
+      select * from user u,role r, user_role a,department d where u.departmentid=d.id and u.id=a.userid and r.roleid=a.roleid
+    </select>
+    <insert id="add">
+        insert into user() values()
+    </insert>
+    <update id="update">
+        update user set
+    </update>
+ <delete id="delete">
+     delete from user  where id=#{id}
+ </delete>
+    <delete id="Delete">
+        delete  from users where id=#{id}
+    </delete>
+    <delete id="BatchDelete">
+        delete from users where
+        <foreach collection="array"  item="id" open="(" separator="," close=")"  >
+            #{id}
+        </foreach>
+    </delete>
+    <select id="rtotal">
+        select  count(*) from role
+    </select>
+    <select id="QueryRole" resultType="com.zhj.model.Role">
+         select * from role  limit #{page},#{rows}
+    </select>
 </mapper>

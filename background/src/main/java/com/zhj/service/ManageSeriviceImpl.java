@@ -2,10 +2,16 @@ package com.zhj.service;
 
 import com.zhj.dao.ManageDao;
 import com.zhj.model.Declare;
+import com.zhj.model.Users;
+import com.zhj.util.ParamUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author ： 朱福
@@ -32,6 +38,27 @@ public class ManageSeriviceImpl implements ManageService {
     @Override
     public void Delete(Integer id) {
         manageDao.Delete(id);
+    }
+
+    @Override
+    public Map Query(ParamUtil param) {
+        Integer total=manageDao.Total(param);
+        Integer page=(param.getPage()-1)*param.getRows();
+        List<Declare> users=manageDao.Query(page,param.getRows(),param);
+        Map ma=new HashMap();
+        ma.put("total",total);
+        ma.put("rows",users);
+        return ma;
+    }
+
+    @Override
+    public void BatchDelete(String[] id) {
+        manageDao.BatchDelete(id);
+    }
+
+    @Override
+    public List<Declare> query(Integer id) {
+        return manageDao.query(id);
     }
 
 }
