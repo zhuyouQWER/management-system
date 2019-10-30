@@ -18,7 +18,7 @@ public class Deal implements Serializable {
     private Integer id;//主键
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 处理从	前端到后端的时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")// 处理从	后端到前端的时间
-    private Date balancedate;//结算日期
+    private Date balancedate;//结算日 期
     private String customername;//客户名称
     private String area;//区域
     private double electric;//交易电量

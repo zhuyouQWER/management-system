@@ -1,19 +1,14 @@
 package com.zhj.service;
 
 import com.zhj.dao.UserDao;
-import com.zhj.model.Jurisdiction;
-import com.zhj.model.Role;
-import com.zhj.model.User;
-import com.zhj.model.Users;
+import com.zhj.model.*;
+import com.zhj.util.LikeUtil;
 import com.zhj.util.ParamUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author ： 朱福
@@ -53,6 +48,11 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void AddUser(Users u) {
+        Date da=new Date();
+        SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time=sim.format(da);
+        //u.getThistime(time);
+     //u.getLasttime(time);
         userDao.AddUser(u);
     }
 
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<Users> Login(Integer id) {
+    public List<User> Login(Integer id) {
         return userDao.Login(id);
     }
 
@@ -79,28 +79,33 @@ public class UserServiceImpl implements UserService{
     @Override
     public Map QueryUser(ParamUtil param) {
         Integer total=userDao.Total(param);
-        Integer page=(param.getPage()-1)*param.getRows();
-        List<Users> users=userDao.QueryUser(page,param.getRows(),param);
+        Integer page=(param.getPage()-1)*param.getSize();
+        String s1 = LikeUtil.LikeCha(param.getEnterprise());
+        String s = LikeUtil.LikeCha(param.getName());
+        param.setName(s);
+        param.setEnterprise(s1);
+        List<Users> users=userDao.QueryUser(page,param.getSize(),param);
         Map ma=new HashMap();
         ma.put("total",total);
-        ma.put("rows",users);
+        ma.put("data",users);
         return ma;
     }
 
     @Override
     public Map Users(ParamUtil param) {
         Integer total=userDao.total(param);
-        Integer page=(param.getPage()-1)*param.getRows();
-        List<User> users=userDao.query(page,param.getRows(),param);
+        Integer page=(param.getPage()-1)*param.getSize();
+        List<User> users=userDao.query(page,param.getSize(),param);
         Map ma=new HashMap();
         ma.put("total",total);
-        ma.put("rows",users);
+        ma.put("data",users);
         return ma;
     }
 
     @Override
     public void add(User u) {
         userDao.add(u);
+
     }
 
     @Override
@@ -126,11 +131,67 @@ public class UserServiceImpl implements UserService{
     @Override
     public Map QueryRole(ParamUtil param) {
         Integer total=userDao.rtotal(param);
-        Integer page=(param.getPage()-1)*param.getRows();
-        List<Role> users=userDao.QueryRole(page,param.getRows());
+        Integer page=(param.getPage()-1)*param.getSize();
+        List<Role> users=userDao.QueryRole(page,param.getSize());
         Map ma=new HashMap();
         ma.put("total",total);
-        ma.put("rows",users);
+        ma.put("data",users);
         return ma;
+    }
+
+    @Override
+    public void RoleDelete(Integer id) {
+        userDao.RoleUser(id);
+    }
+
+    @Override
+    public void RoleBatchDelete(String[] id) {
+        userDao.RoleBatchDelete(id);
+    }
+
+    @Override
+    public void BatchDeleteUser(String[] id) {
+        userDao.BatchDeleteUser(id);
+    }
+
+    @Override
+    public void AddRole(Role role) {
+        userDao.AddRole(role);
+    }
+
+    @Override
+    public void UpdateRole(Role role) {
+       userDao.UpdateRole(role);
+    }
+
+    @Override
+    public Map QueryDepartment(ParamUtil param) {
+        Integer total=userDao.QueryTotal(param);
+        Integer page=(param.getPage()-1)*param.getSize();
+        List<Department> users=userDao.QueryDepartment(page,param.getSize());
+        Map ma=new HashMap();
+        ma.put("total",total);
+        ma.put("data",users);
+        return ma;
+    }
+
+    @Override
+    public void AddDepartment(Department department) {
+        userDao.AddDepartment(department);
+    }
+
+    @Override
+    public void UpdateDepartment(Department department) {
+        userDao.UpdateDepartment(department);
+    }
+
+    @Override
+    public void DeleteDepartment(Integer id) {
+        userDao.DeleteDepartment(id);
+    }
+
+    @Override
+    public void BatchDeleteDepartment(String[] id) {
+        userDao.BatchDeleteDepartment(id);
     }
 }

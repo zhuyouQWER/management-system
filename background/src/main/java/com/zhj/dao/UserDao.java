@@ -1,9 +1,6 @@
 package com.zhj.dao;
 
-import com.zhj.model.Jurisdiction;
-import com.zhj.model.Role;
-import com.zhj.model.User;
-import com.zhj.model.Users;
+import com.zhj.model.*;
 import com.zhj.util.ParamUtil;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,7 +21,6 @@ public interface UserDao {
     List<Jurisdiction> Tree(Integer id);
 
     User LoginUser(User user);
-    
 
     void AddUser(Users u);
 
@@ -32,7 +28,7 @@ public interface UserDao {
 
     void UpdateUser(Users u);
 
-    List<Users> Login(Integer id);
+    List<User> Login(Integer id);
 
     Users LoginUsers(Users users);
 
@@ -41,7 +37,6 @@ public interface UserDao {
     List<Users> QueryUser(@Param("page") Integer page, @Param("rows") Integer rows, @Param("p") ParamUtil param);
 
     Integer total(ParamUtil param);
-
 
     List<User> query(@Param("page") Integer page, @Param("rows") Integer rows, @Param("p") ParamUtil param);
 
@@ -58,4 +53,26 @@ public interface UserDao {
     Integer rtotal(ParamUtil param);
 
     List<Role> QueryRole(@Param("page") Integer page, @Param("rows") Integer rows);
+
+    void RoleUser(Integer id);
+
+    void RoleBatchDelete(String[] id);
+
+    void BatchDeleteUser(String[] id);
+
+    void AddRole(Role role);
+
+    void UpdateRole(Role role);
+
+    Integer QueryTotal(ParamUtil param);
+
+    List<Department> QueryDepartment(@Param("page") Integer page, @Param("rows") Integer size);
+
+    void AddDepartment(Department department);
+
+    void UpdateDepartment(Department department);
+
+    void DeleteDepartment(Integer id);
+
+    void BatchDeleteDepartment(String[] id);
 }

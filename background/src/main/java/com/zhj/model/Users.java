@@ -31,7 +31,7 @@ public class Users implements Serializable {
     private  Integer  status;//是否启用 1是启用  2是不启用
     private  String typename;//类型名称(零时使用字段)
 
-    private  Integer accountstatus;//账号状态
+
 
     public String getTypename() {
         return typename;
@@ -122,13 +122,6 @@ public class Users implements Serializable {
         this.enterprise = enterprise;
     }
 
-    public Integer getAccountstatus() {
-        return accountstatus;
-    }
-
-    public void setAccountstatus(Integer accountstatus) {
-        this.accountstatus = accountstatus;
-    }
 
     @Override
     public String toString() {
@@ -144,7 +137,6 @@ public class Users implements Serializable {
                 ", lasttime=" + lasttime +
                 ", status=" + status +
                 ", typename='" + typename + '\'' +
-                ", accountstatus=" + accountstatus +
                 '}';
     }
 }

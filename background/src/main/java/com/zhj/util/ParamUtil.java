@@ -11,8 +11,8 @@ import java.io.Serializable;
  */
 public class ParamUtil implements Serializable {
     private static final long serialVersionUID = -4197018069962144100L;
-    private  Integer page;//当前页
-    private  Integer rows;//每页条数
+   private  Integer page;//当前页
+    private  Integer size;//每页条数
     private  String enterprise;//公众号企业名称
     private  String name;//公众号名称
     private  Integer status;//公众号类型
@@ -20,6 +20,34 @@ public class ParamUtil implements Serializable {
     private  String customername;//交易结算企业名称
     private  String department;//后台用户部门
     private  String username;//后台用户名称
+    private  Integer salesman;//销售负责人
+    private  Integer agent;//代理商
+    private  Integer trader;//交易员
+
+    public Integer getSalesman() {
+        return salesman;
+    }
+
+    public void setSalesman(Integer salesman) {
+        this.salesman = salesman;
+    }
+
+    public Integer getAgent() {
+        return agent;
+    }
+
+    public void setAgent(Integer agent) {
+        this.agent = agent;
+    }
+
+    public Integer getTrader() {
+        return trader;
+    }
+
+    public void setTrader(Integer trader) {
+        this.trader = trader;
+    }
+
     public Integer getPage() {
         return page;
     }
@@ -28,12 +56,12 @@ public class ParamUtil implements Serializable {
         this.page = page;
     }
 
-    public Integer getRows() {
-        return rows;
+    public Integer getSize() {
+        return size;
     }
 
-    public void setRows(Integer rows) {
-        this.rows = rows;
+    public void setSize(Integer size) {
+        this.size = size;
     }
 
     public String getEnterprise() {
@@ -91,4 +119,6 @@ public class ParamUtil implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+
+
 }

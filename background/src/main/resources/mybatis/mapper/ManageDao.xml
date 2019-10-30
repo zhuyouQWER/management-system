@@ -8,6 +8,7 @@
     </if>
     limit #{page},#{rows}
     </select>
+
  <insert id="Add">
     insert  into declar()  values()
  </insert>

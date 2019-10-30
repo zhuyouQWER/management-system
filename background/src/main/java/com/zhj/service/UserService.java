@@ -1,8 +1,6 @@
 package com.zhj.service;
 
-import com.zhj.model.Jurisdiction;
-import com.zhj.model.User;
-import com.zhj.model.Users;
+import com.zhj.model.*;
 import com.zhj.util.ParamUtil;
 
 import java.util.List;
@@ -17,6 +15,8 @@ import java.util.Map;
  */
 public interface UserService {
 
+
+
     void Update(Integer id);
 
     List<Jurisdiction> Tree(Integer id);
@@ -29,7 +29,7 @@ public interface UserService {
 
     void UpdateUser(Users u);
 
-    List<Users> Login(Integer id);
+    List<User> Login(Integer id);
 
     Users LoginUsers(Users users);
 
@@ -48,4 +48,24 @@ public interface UserService {
     void BatchDelete(String[] id);
 
     Map QueryRole(ParamUtil param);
+
+    void RoleDelete(Integer id);
+
+    void RoleBatchDelete(String[] id);
+
+    void BatchDeleteUser(String[] id);
+
+    void AddRole(Role role);
+
+    void UpdateRole(Role role);
+
+    Map QueryDepartment(ParamUtil param);
+
+    void AddDepartment(Department department);
+
+    void UpdateDepartment(Department department);
+
+    void DeleteDepartment(Integer id);
+
+    void BatchDeleteDepartment(String[] id);
 }

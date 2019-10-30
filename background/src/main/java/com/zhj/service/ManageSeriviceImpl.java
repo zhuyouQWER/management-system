@@ -43,11 +43,11 @@ public class ManageSeriviceImpl implements ManageService {
     @Override
     public Map Query(ParamUtil param) {
         Integer total=manageDao.Total(param);
-        Integer page=(param.getPage()-1)*param.getRows();
-        List<Declare> users=manageDao.Query(page,param.getRows(),param);
+        Integer page=(param.getPage()-1)*param.getSize();
+        List<Declare> users=manageDao.Query(page,param.getSize(),param);
         Map ma=new HashMap();
         ma.put("total",total);
-        ma.put("rows",users);
+        ma.put("data",users);
         return ma;
     }
 

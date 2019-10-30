@@ -46,11 +46,11 @@ public class DealServiceImpl implements DealService{
     @Override
     public Map Query(ParamUtil param) {
         Integer total=dealDao.Total(param);
-        Integer page=(param.getPage()-1)*param.getRows();
-        List<Users> users=dealDao.Query(page,param.getRows(),param);
+        Integer page=(param.getPage()-1)*param.getSize();
+        List<Users> users=dealDao.Query(page,param.getSize(),param);
         Map ma=new HashMap();
         ma.put("total",total);
-        ma.put("rows",users);
+        ma.put("data",users);
         return ma;
     }
 }

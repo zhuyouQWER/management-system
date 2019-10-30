@@ -72,7 +72,7 @@ public class ManageController {
         //导出的excel的标题
         String title = "申报记录";  //自定义
         //导出excel的自定义列名
-        String[] rowName = {"账号","姓名","电量申报日期","用电日期","申报电量(万千瓦时)","当月正常生产天数","跟上月同比","跟去年相同月同比","企业补充说明","状态"};
+        String[] rowName = {"序号","账号","姓名","电量申报日期","用电日期","申报电量(万千瓦时)","当月正常生产天数","跟上月同比","跟去年相同月同比","企业补充说明","状态"};
         //导出的excel数据  定义list集合
         List<Object[]>  dataList = new ArrayList<Object[]>();
 
