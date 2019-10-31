@@ -19,8 +19,8 @@ public class Users implements Serializable {
     private  String  calculate;//账号
     private  String  name;//姓名
     private  String  cellphone;//手机号
-    private  Integer  typeid;//类型外键
-    private  String  enterprise;//所属企业
+    private  Integer  typeid;//类型id
+    private  String  enterpriseid;//所属企业id
     private  String  password;//密码
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 处理从	前端到后端的时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")// 处理从	后端到前端的时间
@@ -30,6 +30,7 @@ public class Users implements Serializable {
     private  Date lasttime;//最后登陆时间
     private  Integer  status;//是否启用 1是启用  2是不启用
     private  String typename;//类型名称(零时使用字段)
+    private  String  customername;//所属企业(零时使用字段)
 
 
 
@@ -114,29 +115,37 @@ public class Users implements Serializable {
         this.status = status;
     }
 
-    public String getEnterprise() {
-        return enterprise;
+    public String getCustomername() {
+        return customername;
     }
 
-    public void setEnterprise(String enterprise) {
-        this.enterprise = enterprise;
+    public void setCustomername(String customername) {
+        this.customername = customername;
     }
 
+    public String getEnterpriseid() {
+        return enterpriseid;
+    }
+
+    public void setEnterpriseid(String enterpriseid) {
+        this.enterpriseid = enterpriseid;
+    }
 
     @Override
-    public String toString() {
+    public String   toString() {
         return "Users{" +
                 "id=" + id +
                 ", calculate='" + calculate + '\'' +
                 ", name='" + name + '\'' +
                 ", cellphone='" + cellphone + '\'' +
                 ", typeid=" + typeid +
-                ", enterprise='" + enterprise + '\'' +
+                ", enterpriseid='" + enterpriseid + '\'' +
                 ", password='" + password + '\'' +
                 ", thistime=" + thistime +
                 ", lasttime=" + lasttime +
                 ", status=" + status +
                 ", typename='" + typename + '\'' +
+                ", customername='" + customername + '\'' +
                 '}';
     }
 }

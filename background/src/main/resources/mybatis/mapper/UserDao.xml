@@ -31,12 +31,12 @@
 select * from users where password=#{password} and cellphone=#{cellphone}
     </select>
   <select id="QueryUser" resultType="com.zhj.model.Users">
-        select * from users u,type t where  u.typeid=t.id
+        select * from users u,type t,client c where  u.typeid=t.id and u.enterpriseid=c.id
         <if test="p.enterprise!=null and p.enterprise != ''">
-            and u.enterprise like  CONCAT('%',#{p.enterprise},'%')
+            and c.enterprise like  #{p.enterprise}
         </if>
         <if test="p.name!=null and p.name!=''">
-            and  u.name like   CONCAT('%',#{p.name},'%')
+            and  u.name like #{p.name}
         </if>
         <if test="p.status!=null and p.status !=0">
             and  u.status=#{p.status}
