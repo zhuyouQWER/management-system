@@ -85,7 +85,7 @@ public class UserController {
         }
 
      }
-     //公众号查一条回显
+
      @RequestMapping("Query")
      @ResponseBody
     public List<Users> Query(Integer id) {
