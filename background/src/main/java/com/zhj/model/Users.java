@@ -132,7 +132,7 @@ public class Users implements Serializable {
     }
 
     @Override
-    public String   toString() {
+    public String toString() {
         return "Users{" +
                 "id=" + id +
                 ", calculate='" + calculate + '\'' +

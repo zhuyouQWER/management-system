@@ -26,24 +26,53 @@ public class DealController {
     //电力交易结算新增，删除
     @RequestMapping("Add")
     @ResponseBody
-    public void Add(Deal d){
+    public String Add(Deal d){
         if (d.getId()==null){
-       dealService.Add(d);
+
+            try {
+                dealService.Add(d);
+                return "1";
+            } catch(Exception e){
+                e.printStackTrace();
+                return "2";
+            }
+
         }else{
-            dealService.Update(d);
+            try {
+                dealService.Update(d);
+                return "1";
+            } catch(Exception e){
+                e.printStackTrace();
+                return "2";
+            }
+
         }
     }
     //电力交易结算删除
     @RequestMapping("Delete")
     @ResponseBody
-    public void Delete(Integer id){
-        dealService.Delete(id);
+    public String Delete(Integer id){
+
+        try {
+            dealService.Delete(id);
+            return "1";
+        } catch(Exception e){
+            e.printStackTrace();
+            return "2";
+        }
     }
     //电力交易结算批删
     @RequestMapping("BatchDelete")
     @ResponseBody
-    public void BatchDelete(String [] id){
-        dealService.BatchDelete(id);
+    public String BatchDelete(String [] id){
+
+        try {
+            dealService.BatchDelete(id);
+            return "1";
+        } catch(Exception e){
+            e.printStackTrace();
+            return "2";
+        }
     }
     //电力交易结算查询
     @RequestMapping("Query")

@@ -104,14 +104,26 @@ public class UserController {
     //公众号用户删除
     @RequestMapping("Delete")
     @ResponseBody
-    public void Delete(Integer id){
-        userService.Delete(id);
+    public String Delete(Integer id){
+        try {
+            userService.Delete(id);
+            return "1";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "2";
+        }
     }
     //公众号用户批量删除
     @RequestMapping("BatchDelete")
     @ResponseBody
-    public  void BatchDelete(String [] id){
-        userService.BatchDelete(id);
+    public  String BatchDelete(String [] id){
+        try {
+            userService.BatchDelete(id);
+            return "1";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "2";
+        }
     }
 
   //公众号登陆
@@ -144,11 +156,25 @@ public class UserController {
    //后台用户新增,修改
     @RequestMapping("add")
     @ResponseBody
-    public void add(User u){
+    public String add(User u){
         if (u.getId()==null){
-            userService.add(u);
+            try {
+                userService.add(u);
+                return "1";
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "2";
+            }
+
         }else {
-            userService.update(u);
+
+            try {
+                userService.update(u);
+                return "1";
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "2";
+            }
         }
     }
     //后台用户删除
@@ -160,8 +186,14 @@ public class UserController {
     //后台用户批删
     @RequestMapping("BatchDeleteUser")
     @ResponseBody
-    public void BatchDeleteUser(String [] id){
-        userService.BatchDeleteUser(id);
+    public String BatchDeleteUser(String [] id){
+        try {
+            userService.BatchDeleteUser(id);
+            return "1";
+        } catch(Exception e){
+            e.printStackTrace();
+            return "2";
+        }
     }
     //后台角色查询
     @RequestMapping("QueryRole")
@@ -172,23 +204,51 @@ public class UserController {
     //后台角色删除
   @RequestMapping("RoleDelete")
   @ResponseBody
-  public void RoleDelete(Integer id){
-        userService.RoleDelete(id);
+  public String RoleDelete(Integer id){
+      try {
+          userService.RoleDelete(id);
+          return "1";
+      } catch(Exception e){
+          e.printStackTrace();
+          return "2";
+      }
+
   }
   //后台角色批删
     @RequestMapping("RoleBatchDelete")
     @ResponseBody
-    public void RoleBatchDelete(String [] id){
-         userService.RoleBatchDelete(id);
+    public String RoleBatchDelete(String [] id){
+        try {
+            userService.RoleBatchDelete(id);
+            return "1";
+        } catch(Exception e){
+            e.printStackTrace();
+            return "2";
+        }
+
     }
 //角色新增，删除
     @RequestMapping("AddRole")
     @ResponseBody
-    public void AddRole(Role role){
+    public String AddRole(Role role){
         if (role.getId()==null){
-            userService.AddRole(role);
+
+            try {
+                userService.AddRole(role);
+                return "1";
+            } catch(Exception e){
+                e.printStackTrace();
+                return "2";
+            }
         }else{
-            userService.UpdateRole(role);
+            try {
+                userService.UpdateRole(role);
+                return "1";
+            } catch(Exception e){
+                e.printStackTrace();
+                return "2";
+            }
+
         }
     }
    //查询部门
@@ -201,24 +261,53 @@ public class UserController {
   //新增部门,修改部门
     @RequestMapping("AddDepartment")
     @ResponseBody
-    public  void AddDepartment(Department department){
+    public  String AddDepartment(Department department){
       if (department.getId()==null){
-          userService.AddDepartment(department);
+
+              try {
+                  userService.AddDepartment(department);
+              return "1";
+          } catch(Exception e){
+              e.printStackTrace();
+              return "2";
+          }
       }else{
-          userService.UpdateDepartment(department);
+          try {
+              userService.UpdateDepartment(department);
+              return "1";
+          } catch(Exception e){
+              e.printStackTrace();
+              return "2";
+          }
       }
     }
     //删除部门
     @RequestMapping("DeleteDepartment")
     @ResponseBody
-    public void DeleteDepartment(Integer id){
-        userService.DeleteDepartment(id);
+    public String DeleteDepartment(Integer id){
+
+        try {
+            userService.DeleteDepartment(id);
+            return "1";
+        } catch(Exception e){
+            e.printStackTrace();
+            return "2";
+        }
     }
     //批量删除部门
     @RequestMapping("BatchDeleteDepartment")
     @ResponseBody
-   public void  BatchDeleteDepartment(String [] id) {
-        userService.BatchDeleteDepartment(id);
+   public String  BatchDeleteDepartment(String [] id) {
+        try {
+            userService.BatchDeleteDepartment(id);
+            return "1";
+        } catch(Exception e){
+            e.printStackTrace();
+            return "2";
+        }
     }
+
+
     
 }
+

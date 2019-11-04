@@ -17,7 +17,8 @@ import java.util.Date;
 public class User implements Serializable {
     private static final long serialVersionUID = 8281159851632066509L;
     private  Integer id;//主键
-    private  String username; //用户名
+    private  String username; //账号
+    private  String name; //姓名
     private  String phone;//电话
     private  String password;//密码
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 处理从	前端到后端的时间
@@ -117,6 +118,14 @@ public class User implements Serializable {
 
     public void setRolename(String rolename) {
         this.rolename = rolename;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

@@ -46,24 +46,52 @@ public class ClientController {
     //客户列表新增、修改
     @RequestMapping("Add")
     @ResponseBody
-    public void Query(Client c){
+    public String Query(Client c){
         if(c.getId()==null){
-       clientService.Add(c);
+
+            try {
+                clientService.Add(c);
+                return "1";
+            } catch(Exception e){
+                e.printStackTrace();
+                return "2";
+            }
         }else{
-       clientService.Update(c);
+            try {
+                clientService.Update(c);
+                return "1";
+            } catch(Exception e){
+                e.printStackTrace();
+                return "2";
+            }
+
         }
     }
   //客户管理删除
     @RequestMapping("Delete")
     @ResponseBody
-    public void Delete(Integer id){
-      clientService.Delete(id);
+    public String Delete(Integer id){
+
+        try {
+            clientService.Delete(id);
+            return "1";
+        } catch(Exception e){
+            e.printStackTrace();
+            return "2";
+        }
     }
     //客户管理批删
     @RequestMapping("BatchDelete")
     @ResponseBody
-    public void BatchDelete(String[] id) {
-        clientService.BatchDelete(id);
+    public String BatchDelete(String[] id) {
+        try {
+            clientService.BatchDelete(id);
+            return "1";
+        } catch(Exception e){
+            e.printStackTrace();
+            return "2";
+        }
+
     }
     //公众号结算查询
     @RequestMapping("QueryUsers")
@@ -74,9 +102,16 @@ public class ClientController {
     //公众号修改密码
     @RequestMapping("Password")
     @ResponseBody
-    public  void Password(String password,HttpServletRequest request){
+    public  String Password(String password,HttpServletRequest request){
             Users users = (Users) request.getSession().getAttribute("users");
-        clientService.Password(password,users.getId());
+        try {
+            clientService.Password(password,users.getId());
+            return "1";
+        } catch(Exception e){
+            e.printStackTrace();
+            return "2";
+        }
+
     }
     //导出excel方法 （数据库查询数据 使用封装工具类导出）
     @RequestMapping("exportExcel")
@@ -121,8 +156,14 @@ public class ClientController {
   //公众号电力申报新增
     @RequestMapping("AddDeclare")
     @ResponseBody
-    public void AddDeclare(Declare declare){
-        clientService.AddDeclare(declare);
+    public String AddDeclare(Declare declare){
+        try {
+            clientService.AddDeclare(declare);
+            return "1";
+        } catch(Exception e){
+            e.printStackTrace();
+            return "2";
+        }
     }
     
 }

@@ -46,24 +46,53 @@ public class ManageController {
     //申报记录新增,修改
     @RequestMapping("Add")
     @ResponseBody
-    public void Add(Declare d){
+    public String Add(Declare d){
         if(d.getId()==null ){
-            manageService.Add(d);
+
+            try {
+                manageService.Add(d);
+                return "1";
+            } catch(Exception e){
+                e.printStackTrace();
+                return "2";
+            }
         }else{
-            manageService.Update(d);
+            try {
+                manageService.Update(d);
+                return "1";
+            } catch(Exception e){
+                e.printStackTrace();
+                return "2";
+            }
+
         }
     }
     //申报记录删除
     @RequestMapping("Delete")
     @ResponseBody
-    public void Delete(Integer id){
-   manageService.Delete(id);
+    public String Delete(Integer id){
+
+        try {
+            manageService.Delete(id);
+            return "1";
+        } catch(Exception e){
+            e.printStackTrace();
+            return "2";
+        }
     }
     //申报记录删除
     @RequestMapping("BatchDelete")
     @ResponseBody
-    public void BatchDelete(String [] id){
-        manageService.BatchDelete(id);
+    public String BatchDelete(String [] id){
+
+        try {
+            manageService.BatchDelete(id);
+            return "1";
+        } catch(Exception e){
+            e.printStackTrace();
+            return "2";
+        }
+
     }
 
     //导出excel方法 （数据库查询数据 使用封装工具类导出）
