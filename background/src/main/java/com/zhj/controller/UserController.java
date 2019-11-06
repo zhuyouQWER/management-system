@@ -7,6 +7,7 @@ import com.zhj.util.TreeUtil;
 import org.apache.ibatis.annotations.Param;
 import org.apache.poi.hslf.record.Sound;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +36,7 @@ public class UserController {
     //后台登录
     @RequestMapping("LoginUser")
     @ResponseBody
-    public Map LoginUser(@RequestBody User user, HttpServletRequest request){
+    public Map LoginUser(@RequestBody  User user, HttpServletRequest request){
        User u = userService.LoginUser(user);
        Map map=new HashMap();
        if (u == null){
@@ -54,6 +56,7 @@ public class UserController {
 
       }
   }
+
 
    // 权限菜单查询
      @RequestMapping("Tree")
@@ -76,12 +79,25 @@ public class UserController {
      //公众号新增，修改
      @RequestMapping("AddUser")
      @ResponseBody
-    public void AddUser(Users u){
+    public String AddUser(Users u){
         if(u.getId()==null){
-            userService.AddUser(u);
-            userService.Update(u.getId());
+            try {
+                userService.AddUser(u);
+                userService.Update(u.getId());
+                return "1";
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "2";
+            }
         }else{
-            userService.UpdateUser(u);
+            try {
+                userService.UpdateUser(u);
+                return "1";
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "2";
+            }
+
         }
 
      }
@@ -129,8 +145,9 @@ public class UserController {
   //公众号登陆
   @RequestMapping("LoginUsers")
   @ResponseBody
-    public Map LoginUsers(Users users,HttpServletRequest request){
+    public Map LoginUsers(@RequestBody Users users,HttpSession session){
         Users users1=userService.LoginUsers(users);
+
         Map map=new HashMap();
        if(users1==null){
            map.put("success","用户名或密码错误");
@@ -141,9 +158,12 @@ public class UserController {
            map.put("status","201");
          return map;
        }else {
-           request.getSession().setAttribute("users",users1);
+
+           System.err.println(session.getId()+"999999999999999");
+           session.setAttribute("users",users1);
            map.put("status","200");
            map.put("success","登录成功");
+           map.put("data",users1);
            return map;
        }
   }
@@ -231,7 +251,7 @@ public class UserController {
     @RequestMapping("AddRole")
     @ResponseBody
     public String AddRole(Role role){
-        if (role.getId()==null){
+        if (role.getRoleid()==null){
 
             try {
                 userService.AddRole(role);
@@ -306,8 +326,16 @@ public class UserController {
             return "2";
         }
     }
-
-
-    
+  //公众号启用停用
+    @RequestMapping("Status")
+    @ResponseBody
+    public String Status(@RequestBody ParamUtil param){
+        try {
+            userService.Status(param);
+            return "1";
+        } catch(Exception e){
+            e.printStackTrace();
+            return "2";
+        }
+    }
 }
-

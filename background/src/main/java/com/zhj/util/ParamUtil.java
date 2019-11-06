@@ -1,6 +1,10 @@
 package com.zhj.util;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author ： 朱福
@@ -23,6 +27,78 @@ public class ParamUtil implements Serializable {
     private  Integer salesman;//销售负责人
     private  Integer agent;//代理商
     private  Integer trader;//交易员
+    private  Integer id;//公众号修改状态id
+    private  Integer state;//是否启用
+    private  Integer sort;//排序
+    private String time;//时间
+    private String date;//导出时间
+    private String oldpassword;//旧密码
+    private  String password;//密码
+    private  String year;//年
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getOldpassword() {
+        return oldpassword;
+    }
+
+    public void setOldpassword(String oldpassword) {
+        this.oldpassword = oldpassword;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getSalesman() {
         return salesman;

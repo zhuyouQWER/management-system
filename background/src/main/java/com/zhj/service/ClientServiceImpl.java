@@ -5,12 +5,14 @@ import com.zhj.model.Client;
 import com.zhj.model.Deal;
 
 import com.zhj.model.Declare;
+import com.zhj.model.Users;
 import com.zhj.util.LikeUtil;
 import com.zhj.util.ParamUtil;
 import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -51,14 +53,15 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<Deal> QueryUsers(String da) {
-        String s = LikeUtil.LikeCha(da);
+        SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM");
+        ParsePosition pos = new ParsePosition(0);
+        Date parse = sim.parse(da, pos);
+        String format = sim.format(parse);
+        String s = LikeUtil.LikeCha(format);
         return clientDao.QueryUsers(s);
     }
 
-    @Override
-    public void Password(String password, Integer id) {
-        clientDao.Password(password,id);
-    }
+
 
     @Override
     public void AddDeclare(Declare declare) {
@@ -90,6 +93,52 @@ public class ClientServiceImpl implements ClientService {
         Map ma=new HashMap();
         ma.put("total",total);
         ma.put("data",users);
+        return ma;
+    }
+
+    @Override
+    public List<Users> Message(Integer id) {
+
+        return clientDao.Message(id);
+    }
+
+    @Override
+    public List<Users> QueryPassword(Integer id) {
+        return clientDao.QueryPassword(id);
+    }
+
+    @Override
+    public Users Password(String oldpassword, Integer id) {
+        return clientDao.Password(oldpassword,id);
+    }
+
+    @Override
+    public void OldPassword(String password, Integer id) {
+        clientDao.OldPassword(password,id);
+    }
+
+    @Override
+    public List<Deal> More(ParamUtil param) {
+        SimpleDateFormat sim=new SimpleDateFormat("yyyy");
+        ParsePosition pos = new ParsePosition(0);
+        Date parse = sim.parse(param.getYear(), pos);
+        String format = sim.format(parse);
+        String s = LikeUtil.LikeCha(format);
+        param.setYear(s);
+        return clientDao.More(param);
+    }
+
+    @Override
+    public Map DateTime() {
+         String da=clientDao.da();
+        String time=clientDao.time();
+        String date=clientDao.date();
+        String tim=clientDao.tim();
+        Map ma=new HashMap();
+        ma.put("sbstatartime",da);
+        ma.put("sbendtime",time);
+        ma.put("ydstatartime",date);
+        ma.put("ydendtime",tim);
         return ma;
     }
 

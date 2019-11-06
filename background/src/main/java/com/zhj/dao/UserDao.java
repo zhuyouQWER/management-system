@@ -3,6 +3,7 @@ package com.zhj.dao;
 import com.zhj.model.*;
 import com.zhj.util.ParamUtil;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -75,4 +76,9 @@ public interface UserDao {
     void DeleteDepartment(Integer id);
 
     void BatchDeleteDepartment(String[] id);
+
+
+    void Status(@Param("status") Integer status,@Param("id") Integer id);
+
+    void status(@Param("status")Integer status, @Param("id")Integer id);
 }
