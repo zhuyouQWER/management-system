@@ -1,9 +1,6 @@
 package com.zhj.dao;
 
-import com.zhj.model.Client;
-import com.zhj.model.Deal;
-import com.zhj.model.Declare;
-import com.zhj.model.Users;
+import com.zhj.model.*;
 import com.zhj.util.ParamUtil;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,13 +28,13 @@ public interface ClientDao {
 
     Users Password(@Param("oldpassword") String oldpassword, @Param("id") Integer id);
 
-    void AddDeclare(@Param("declar") Declare declare);
+    void AddDeclare( Declare declare);
 
-    void AddDeclar(@Param("declar")Declare declare);
+    void AddDeclar(Declare declare);
 
     Integer Total(ParamUtil param);
 
-    List<Declare> Query(@Param("page") Integer page, @Param("size") Integer size,@Param("p")ParamUtil param);
+    List<Client> Query(@Param("page") Integer page, @Param("size") Integer size,@Param("p")ParamUtil param);
 
     List<Users> Message(Integer id);
 
@@ -56,4 +53,13 @@ public interface ClientDao {
     String tim();
 
     List<Deal> MoreAndMore(Integer id);
+
+    List<Deal> History(Integer id);
+
+
+    List<User> Trader();
+
+    List<User> Salesman();
+
+    List<User> Agent();
 }

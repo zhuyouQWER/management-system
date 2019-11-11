@@ -26,13 +26,13 @@
         select  * from users where password=#{oldpassword} and id=#{id}
     </select>
     <insert id="AddDeclare">
-      insert into  declar(declaretime,electrotime,electro,days,lastmonth,explain,status,usersid) values(#{declaretime},#{electrotime},#{electro},#{days},#{lastmonth},#{explain},#{status},#{usersid})
+      insert into  declar(declaretime,electrotime,electro,days,lastmonth,explai,status,usersid,electrotimeho) values(#{declaretime},#{electrotime},#{electro},#{days},#{lastmonth},#{explai},#{status},#{usersid},#{electrotimeho})
     </insert>
  <insert id="AddDeclar">
-    insert into  declar(declaretime,electrotime,electro,days,samemoth,explain,status,usersid) values(#{declaretime},#{electrotime},#{electro},#{days},#{samemoth},#{explain},#{status},#{usersid})
+    insert into  declar(declaretime,electrotime,electro,days,samemoth,explai,status,usersid,electrotimeho) values(#{declaretime},#{electrotime},#{electro},#{days},#{samemoth},#{explai},#{status},#{usersid},#{electrotimeho})
  </insert>
     <select id="Query">
-        select  * from select * from client c,type y,trader t,salesman s,agent a where c.typeid=y.id and c.agentid=a.id and c.traderid=t.id and c.salesmanid=s.id
+        select * from client c,type y,trader t,salesman s,agent a where c.typeid=y.id and c.agentid=a.id and c.traderid=t.id and c.salesmanid=s.id
          <if test="p.salesman != null and p.salesman!=0">
            and  salesmanid=#{p.salesman}
          </if>
@@ -72,6 +72,10 @@ select date_add(CURDATE(),interval - day(curdate()) + 15 day)
 select  last_day(date_add(curdate(),interval 1 month ))
     </select>
     <select id="MoreAndMore" resultType="com.zhj.model.Deal">
-          select * from deal d,declar r where d.declareid=r.id and  r.usersid=#{id}
+      select  * from  deal d,declar r
+where d.balancedate>DATE_SUB(CURDATE(), INTERVAL 2 MONTH)and d.declareid=r.id and r.usersid=#{id} order by d.balancedate desc
+    </select>
+    <select id="History"   resultType="com.zhj.model.Deal">
+          select * from deal d,declar r where d.declareid=r.id and r.usersid=#{id}  order by d.balancedate desc
     </select>
 </mapper>

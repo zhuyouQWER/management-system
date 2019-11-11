@@ -1,11 +1,8 @@
 package com.zhj.service;
 
 import com.zhj.dao.ClientDao;
-import com.zhj.model.Client;
-import com.zhj.model.Deal;
+import com.zhj.model.*;
 
-import com.zhj.model.Declare;
-import com.zhj.model.Users;
 import com.zhj.util.LikeUtil;
 import com.zhj.util.ParamUtil;
 import org.apache.poi.util.StringUtil;
@@ -68,7 +65,7 @@ public class ClientServiceImpl implements ClientService {
          if (declare.getComparison()==1){
            declare.setLastmonth(declare.getType());
              Date da=new Date();
-             SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+             SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd");
              String time=sim.format(da);
              declare.setDeclaretime(time);
              declare.setStatus(3);
@@ -77,7 +74,7 @@ public class ClientServiceImpl implements ClientService {
          }else{
             declare.setSamemoth(declare.getType());
              Date da=new Date();
-             SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+             SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd");
              String time=sim.format(da);
             declare.setDeclaretime(time);
             declare.setStatus(3);
@@ -91,7 +88,9 @@ public class ClientServiceImpl implements ClientService {
     public Map Query(ParamUtil param) {
         Integer total=clientDao.Total(param);
         Integer page=(param.getPage()-1)*param.getSize();
-        List<Declare> users=clientDao.Query(page,param.getSize(),param);
+        String s = LikeUtil.LikeCha(param.getFirm());
+        param.setFirm(s);
+        List<Client> users=clientDao.Query(page,param.getSize(),param);
         Map ma=new HashMap();
         ma.put("total",total);
         ma.put("data",users);
@@ -147,6 +146,26 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<Deal> MoreAndMore(Integer id) {
         return clientDao.MoreAndMore(id);
+    }
+
+    @Override
+    public List<Deal> History(Integer id) {
+        return clientDao.History(id);
+    }
+
+    @Override
+    public List<User> Trader() {
+        return clientDao.Trader();
+    }
+
+    @Override
+    public List<User> Salesman() {
+        return clientDao.Salesman();
+    }
+
+    @Override
+    public List<User> Agent() {
+        return clientDao.Agent();
     }
 
 

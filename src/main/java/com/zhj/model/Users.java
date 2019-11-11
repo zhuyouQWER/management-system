@@ -20,7 +20,7 @@ public class Users implements Serializable {
     private  String  name;//姓名
     private  String  cellphone;//手机号
     private  Integer  typeid;//类型id
-    private  String  enterpriseid;//所属企业id
+    private  Integer  enterpriseid;//所属企业id
     private  String  password;//密码
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 处理从	前端到后端的时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")// 处理从	后端到前端的时间
@@ -31,14 +31,14 @@ public class Users implements Serializable {
     private  Integer  status;//是否启用 1是启用  2是不启用
     private  String typename;//类型名称(零时使用字段)
     private  String  customername;//所属企业(零时使用字段)
-    private  String  traderphone;//交易原电话(零时字段)
+    private  String  phone;//交易原电话(零时字段)
 
-    public String getTraderphone() {
-        return traderphone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTraderphone(String traderphone) {
-        this.traderphone = traderphone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getTypename() {
@@ -130,11 +130,11 @@ public class Users implements Serializable {
         this.customername = customername;
     }
 
-    public String getEnterpriseid() {
+    public Integer getEnterpriseid() {
         return enterpriseid;
     }
 
-    public void setEnterpriseid(String enterpriseid) {
+    public void setEnterpriseid(Integer enterpriseid) {
         this.enterpriseid = enterpriseid;
     }
 

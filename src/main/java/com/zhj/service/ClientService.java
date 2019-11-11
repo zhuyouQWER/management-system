@@ -1,9 +1,6 @@
 package com.zhj.service;
 
-import com.zhj.model.Client;
-import com.zhj.model.Deal;
-import com.zhj.model.Declare;
-import com.zhj.model.Users;
+import com.zhj.model.*;
 import com.zhj.util.ParamUtil;
 
 import java.util.Date;
@@ -50,4 +47,13 @@ public interface ClientService {
     Map DateTime();
 
     List<Deal> MoreAndMore(Integer id);
+
+    List<Deal> History(Integer id);
+
+
+    List<User> Trader();
+
+    List<User> Salesman();
+
+    List<User> Agent();
 }

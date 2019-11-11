@@ -26,27 +26,30 @@
         select  * from users where password=#{oldpassword} and id=#{id}
     </select>
     <insert id="AddDeclare">
-      insert into  declar(declaretime,electrotime,electro,days,lastmonth,explain,status,usersid) values(#{declaretime},#{electrotime},#{electro},#{days},#{lastmonth},#{explain},#{status},#{usersid})
+      insert into  declar(declaretime,electrotime,electro,days,lastmonth,explai,status,usersid,electrotimeho) values(#{declaretime},#{electrotime},#{electro},#{days},#{lastmonth},#{explai},#{status},#{usersid},#{electrotimeho})
     </insert>
  <insert id="AddDeclar">
-    insert into  declar(declaretime,electrotime,electro,days,samemoth,explain,status,usersid) values(#{declaretime},#{electrotime},#{electro},#{days},#{samemoth},#{explain},#{status},#{usersid})
+    insert into  declar(declaretime,electrotime,electro,days,samemoth,explai,status,usersid,electrotimeho) values(#{declaretime},#{electrotime},#{electro},#{days},#{samemoth},#{explai},#{status},#{usersid},#{electrotimeho})
  </insert>
-    <select id="Query">
-        select  * from select * from client c,type y,trader t,salesman s,agent a where c.typeid=y.id and c.agentid=a.id and c.traderid=t.id and c.salesmanid=s.id
+    <select id="Query" resultType="com.zhj.model.Client">
+        select * from client c,type y,role  r, user u,user_role s,region r1,region r2,region r3 where c.typeid=y.id and  r.roleid=s.roleid and u.id =s.userid and  c.province=r1.id and r1.id=r2.pid and r2.id=r3.pid and c.userid=u.id
          <if test="p.salesman != null and p.salesman!=0">
-           and  salesmanid=#{p.salesman}
+           and  c.userid=#{p.salesman}
          </if>
          <if test="p.trader!=null and p.trader!=0">
-             and traderid =#{p.trader}
+             and c.userid =#{p.trader}
          </if>
          <if test="p.agent!=null and p.agent!=0">
-             and agentid= #{p.agent}
+             and c.userid= #{p.agent}
+    </if>
+         <if test="p.firm!=null and p.firm !=''">
+             and c.customername like #{p.firm}
          </if>
+
         limit #{page},#{size}
     </select>
 <select id="Message" resultType="com.zhj.model.Users">
-   select * from users u, trader t,type e  where u.traderid=t.id and u.typeid=e.id and u.id=#{id}
-</select>
+    select u.name,s.phone,t.typename from users u,client c,user s,role r, user_role o,type t where u.enterpriseid=c.id and c.traderid=s.id and s.id=o.userid and r.roleid=o.roleid and u.id=#{id}  and 	 t.id=u.typeid</select>
     <select id="QueryPassword" resultType="com.zhj.model.Users">
    select * from  users where  id=#{id}
     </select>
@@ -72,6 +75,23 @@ select date_add(CURDATE(),interval - day(curdate()) + 15 day)
 select  last_day(date_add(curdate(),interval 1 month ))
     </select>
     <select id="MoreAndMore" resultType="com.zhj.model.Deal">
-          select * from deal d,declar r where d.declareid=r.id and  r.usersid=#{id}
+      select  * from  deal d,declar r
+where d.balancedate>DATE_SUB(CURDATE(), INTERVAL 2 MONTH)and d.declareid=r.id and r.usersid=#{id} order by d.balancedate desc
     </select>
+    <select id="History"   resultType="com.zhj.model.Deal">
+          select * from deal d,declar r where d.declareid=r.id and r.usersid=#{id}  order by d.balancedate desc
+    </select>
+    <select id="Total" resultType="java.lang.Integer">
+       select count(1) from client c,type y,role  r, user u,user_role s,region r1,region r2,region r3 where c.typeid=y.id and  r.roleid=s.roleid and u.id =s.userid and  c.province=r1.id and r1.id=r2.pid and r2.id=r3.pid and c.userid=u.id
+    </select>
+    <select id="Trader" resultType="com.zhj.model.User">
+   	select u.name from role  r, user u,user_role s where  r.roleid=s.roleid and u.id =s.userid  and r.roleid=1
+    </select>
+    <select id="Salesman"  resultType="com.zhj.model.User">
+    select u.name from role  r, user u,user_role s where  r.roleid=s.roleid and u.id =s.userid  and r.roleid=2
+    </select>
+    <select id="Agent" resultType="com.zhj.model.User">
+         select u.name from role  r, user u,user_role s where  r.roleid=s.roleid and u.id =s.userid  and r.roleid=3
+    </select>
+
 </mapper>

@@ -35,6 +35,24 @@ public class ParamUtil implements Serializable {
     private String oldpassword;//旧密码
     private  String password;//密码
     private  String year;//年
+    private  String firm;//客户企业名称
+    private  Integer region;//地区
+
+    public Integer getRegion() {
+        return region;
+    }
+
+    public void setRegion(Integer region) {
+        this.region = region;
+    }
+
+    public String getFirm() {
+        return firm;
+    }
+
+    public void setFirm(String firm) {
+        this.firm = firm;
+    }
 
     public String getYear() {
         return year;

@@ -13,106 +13,15 @@ public class Client implements Serializable {
     private static final long serialVersionUID = -8796712011181718822L;
     private  Integer id; //主键
     private  Integer province;//省份
-    private  Integer customername; //客户名称
+    private  String customername; //客户名称
     private  Integer typeid; //用户类型id
-    private  Integer traderid;//交易员id
-    private  Integer agentid; //代理商id
-    private  Integer salesmanid;//销售负责人id
-    private  Integer trader; //交易员(零时字段)
-    private  Integer traderphone; //交易电话(零时字段)
-    private  Integer salesman; //销售负责人(零时字段)
-    private  Integer salescalls; //销售电话(零时字段)
-    private  Integer agent; //代理商(零时字段)
-    private  Integer agentnumber; //代理商电话(零时字段)
+    private  Integer traderid;//交易id
+    private  Integer agentid;//代理商id
+    private  Integer salesmanid;//销售id
     private  String typename;//类型名称(零时使用字段)
-
-    public String getTypename() {
-        return typename;
-    }
-
-    public void setTypename(String typename) {
-        this.typename = typename;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getProvince() {
-        return province;
-    }
-
-    public void setProvince(Integer province) {
-        this.province = province;
-    }
-
-    public Integer getCustomername() {
-        return customername;
-    }
-
-    public void setCustomername(Integer customername) {
-        this.customername = customername;
-    }
-
-    public Integer getTypeid() {
-        return typeid;
-    }
-
-    public void setTypeid(Integer typeid) {
-        this.typeid = typeid;
-    }
-
-    public Integer getTrader() {
-        return trader;
-    }
-
-    public void setTrader(Integer trader) {
-        this.trader = trader;
-    }
-
-    public Integer getTraderphone() {
-        return traderphone;
-    }
-
-    public void setTraderphone(Integer traderphone) {
-        this.traderphone = traderphone;
-    }
-
-    public Integer getSalesman() {
-        return salesman;
-    }
-
-    public void setSalesman(Integer salesman) {
-        this.salesman = salesman;
-    }
-
-    public Integer getSalescalls() {
-        return salescalls;
-    }
-
-    public void setSalescalls(Integer salescalls) {
-        this.salescalls = salescalls;
-    }
-
-    public Integer getAgent() {
-        return agent;
-    }
-
-    public void setAgent(Integer agent) {
-        this.agent = agent;
-    }
-
-    public Integer getAgentnumber() {
-        return agentnumber;
-    }
-
-    public void setAgentnumber(Integer agentnumber) {
-        this.agentnumber = agentnumber;
-    }
+    private  String  name;//用户名称(零时使用字段)
+    private  String  phone;//用户电话(零时使用字段)
+    private  String  rolename;//角色名称(零时使用字段)
 
     public Integer getTraderid() {
         return traderid;
@@ -138,23 +47,71 @@ public class Client implements Serializable {
         this.salesmanid = salesmanid;
     }
 
-    @Override
-    public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", province=" + province +
-                ", customername=" + customername +
-                ", typeid=" + typeid +
-                ", traderid=" + traderid +
-                ", agentid=" + agentid +
-                ", salesmanid=" + salesmanid +
-                ", trader=" + trader +
-                ", traderphone=" + traderphone +
-                ", salesman=" + salesman +
-                ", salescalls=" + salescalls +
-                ", agent=" + agent +
-                ", agentnumber=" + agentnumber +
-                ", typename='" + typename + '\'' +
-                '}';
+    public String getRolename() {
+        return rolename;
     }
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
+
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getProvince() {
+        return province;
+    }
+
+    public void setProvince(Integer province) {
+        this.province = province;
+    }
+
+    public String getCustomername() {
+        return customername;
+    }
+
+    public void setCustomername(String customername) {
+        this.customername = customername;
+    }
+
+    public Integer getTypeid() {
+        return typeid;
+    }
+
+    public void setTypeid(Integer typeid) {
+        this.typeid = typeid;
+    }
+
+    public String getTypename() {
+        return typename;
+    }
+
+    public void setTypename(String typename) {
+        this.typename = typename;
+    }
+
+
 }

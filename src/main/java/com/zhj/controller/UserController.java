@@ -4,10 +4,14 @@ import com.zhj.model.*;
 import com.zhj.service.UserService;
 import com.zhj.util.ParamUtil;
 import com.zhj.util.TreeUtil;
+import org.apache.ibatis.annotations.Param;
+import org.apache.poi.hslf.record.Sound;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +43,6 @@ public class UserController {
            map.put("success","用户名或密码错误");
            map.put("status","500");
            return map;
-
        }else if(u.getAccountstatus()==2){
            map.put("success","账号未启用");
            map.put("status","201");
@@ -49,7 +52,6 @@ public class UserController {
            map.put("status","200");
            map.put("success","登录成功");
            return map;
-
       }
   }
 
@@ -154,12 +156,10 @@ public class UserController {
            map.put("status","201");
          return map;
        }else {
-
-           System.err.println(session.getId()+"999999999999999");
            session.setAttribute("users",users1);
            map.put("status","200");
            map.put("success","登录成功");
-           map.put("data",users1);
+
            return map;
        }
   }
@@ -330,7 +330,7 @@ public class UserController {
             userService.Status(param);
             return "1";
         } catch (Exception e) {
-            e.printStackTrace();
+             e.printStackTrace();
             return "2";
         }
     }

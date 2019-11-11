@@ -1,21 +1,25 @@
 package com.zhj.controller;
 
-import com.zhj.model.Client;
-import com.zhj.model.Deal;
-import com.zhj.model.Declare;
-import com.zhj.model.Users;
+import com.zhj.model.*;
 import com.zhj.service.ClientService;
 import com.zhj.util.ExportExcel;
 import com.zhj.util.ParamUtil;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -160,7 +164,7 @@ public class ClientController {
   //公众号电力申报新增
     @RequestMapping("AddDeclare")
     @ResponseBody
-    public String AddDeclare(Declare declare,HttpSession session){
+    public String AddDeclare(@RequestBody Declare declare,HttpSession session){
         try {
             Users users = (Users) session.getAttribute("users");
             clientService.AddDeclare(declare,users.getId());
@@ -174,8 +178,6 @@ public class ClientController {
     @RequestMapping("Message")
     @ResponseBody
     public List<Users> Message(HttpSession session){
-
-        System.err.println(session.getId()+"888888888888");
         Users users = (Users) session.getAttribute("users");
         return clientService.Message(users.getId());
 
@@ -194,19 +196,48 @@ public class ClientController {
         Users users = (Users) Session.getAttribute("users");
         return clientService.More(param,users.getId());
     }
-    //历史
+    //最近2个小时
     @RequestMapping("MoreAndMore")
     @ResponseBody
     public  List<Deal> MoreAndMore(HttpSession Session){
         Users users = (Users) Session.getAttribute("users");
         return clientService.MoreAndMore(users.getId());
     }
+    //历史更多
+    @RequestMapping("History")
+    @ResponseBody
+     public  List<Deal> History(HttpSession Session){
+        Users users = (Users) Session.getAttribute("users");
+        return clientService.History(users.getId());
+    }
 
     //公众号申报时间
     @RequestMapping("DateTime")
     @ResponseBody
-    public Map DateTime(){
+    public Map DateTime() {
         return clientService.DateTime();
     }
+    //交易员查询
+    @RequestMapping("Trader")
+    @ResponseBody
+    public List<User> Trader(){
+        List<User> list =clientService.Trader();
+        return list;
+    }
+    //销售员查询
+    @RequestMapping("Salesman")
+    @ResponseBody
+    public List<User> Salesman(){
+        List<User> list =clientService.Salesman();
+        return list;
+    }
+    //销售员查询
+    @RequestMapping("Agent")
+    @ResponseBody
+    public List<User> Agent(){
+        List<User> list =clientService.Agent();
+        return list;
+    }
+
 }
   
