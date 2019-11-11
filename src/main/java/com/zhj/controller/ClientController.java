@@ -227,10 +227,10 @@ public class ClientController {
     //销售员查询
     @RequestMapping("Agent")
     @ResponseBody
-    public List<User> Agent(){
-        List<User> list =clientService.Agent();
+    public List<User> Agent() {
+        List<User> list = clientService.Agent();
         return list;
     }
-
+    //////aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 }
   
