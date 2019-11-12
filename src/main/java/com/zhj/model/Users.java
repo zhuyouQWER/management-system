@@ -31,7 +31,7 @@ public class Users implements Serializable {
     private  Integer  status;//是否启用 1是启用  2是不启用
     private  String typename;//类型名称(零时使用字段)
     private  String  customername;//所属企业(零时使用字段)
-    private  String  phone;//交易原电话(零时字段)
+    private  String  phone;//交易员电话(零时字段)
 
     public String getPhone() {
         return phone;

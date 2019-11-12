@@ -1,10 +1,6 @@
 package com.zhj.util;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author ： 朱福
@@ -36,14 +32,23 @@ public class ParamUtil implements Serializable {
     private  String password;//密码
     private  String year;//年
     private  String firm;//客户企业名称
-    private  Integer region;//地区
+    private  Integer capital;//省
+    private  Integer city;//市
 
-    public Integer getRegion() {
-        return region;
+    public Integer getCapital() {
+        return capital;
     }
 
-    public void setRegion(Integer region) {
-        this.region = region;
+    public void setCapital(Integer capital) {
+        this.capital = capital;
+    }
+
+    public Integer getCity() {
+        return city;
+    }
+
+    public void setCity(Integer city) {
+        this.city = city;
     }
 
     public String getFirm() {

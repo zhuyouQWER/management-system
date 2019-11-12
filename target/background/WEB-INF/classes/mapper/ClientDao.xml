@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhj.dao.ClientDao" >
 <insert id="Add">
-      insert into client(id,province,customername,typeid,trader,traderphone,salesman,salescalls,agent,agentnumber) values()
+      insert into client(capitalid,customername,traderid,agentid,salesmanid,cityid,districtid) values(#{capitalid},#{customername},#{traderid},#{agentid},#{salesmanid},#{cityid},#{districtid})
   </insert>
   <update id="Update">
-      update  client set province=#{province},customername=#{customername},typeid=#{typeid},trader=#{trader},traderphone=#{traderphone},salesman=#{salesman},salescalls=#{salescalls},agent=#{agent},agentnumber=#{agentnumber}
+      update  client set capitalid=#{capitalid},customername=#{customername},traderid=#{traderid},agentid=#{agentid},salesmanid=#{salesmanid},cityid=#{cityid},districtid=#{districtid} where id=#{id}
   </update>
   <delete id="Delete">
       delete  from  client where id=#{id}
@@ -32,20 +32,25 @@
     insert into  declar(declaretime,electrotime,electro,days,samemoth,explai,status,usersid,electrotimeho) values(#{declaretime},#{electrotime},#{electro},#{days},#{samemoth},#{explai},#{status},#{usersid},#{electrotimeho})
  </insert>
     <select id="Query" resultType="com.zhj.model.Client">
-        select * from client c,type y,role  r, user u,user_role s,region r1,region r2,region r3 where c.typeid=y.id and  r.roleid=s.roleid and u.id =s.userid and  c.province=r1.id and r1.id=r2.pid and r2.id=r3.pid and c.userid=u.id
+        select u1.name trader,u2.name agent,u3.name salesman,u1.phone traderphone,u2.phone agentphone,u3.phone salesmanphone,c.customername,r1.region capital,r2.region city,r3.region district from client c,role  r, user u1,user u2,user u3,user_role s,region r1 ,region r2 ,region r3  where  r.roleid=s.roleid and u1.id =s.userid and  c.capitalid=r1.id and c.cityid=r2.id and c.districtid=r3.id and r1.id=r2.pid and r2.id=r3.pid and c.traderid=u1.id  and c.salesmanid=u2.id and c.agentid=u3.id
          <if test="p.salesman != null and p.salesman!=0">
-           and  c.userid=#{p.salesman}
+           and  c.salesmanid=#{p.salesman}
          </if>
          <if test="p.trader!=null and p.trader!=0">
-             and c.userid =#{p.trader}
+             and c.traderid =#{p.trader}
          </if>
          <if test="p.agent!=null and p.agent!=0">
-             and c.userid= #{p.agent}
-    </if>
+             and c.agentid= #{p.agent}
+        </if>
+        <if test="p.capital !=null and p.capital!=0">
+            and c.capital=#{p.capital}
+        </if>
+        <if test="p.city!=null and p.city !=0">
+            and c.city=#{p.city}
+        </if>
          <if test="p.firm!=null and p.firm !=''">
              and c.customername like #{p.firm}
-         </if>
-
+             </if>
         limit #{page},#{size}
     </select>
 <select id="Message" resultType="com.zhj.model.Users">
@@ -82,7 +87,7 @@ where d.balancedate>DATE_SUB(CURDATE(), INTERVAL 2 MONTH)and d.declareid=r.id an
           select * from deal d,declar r where d.declareid=r.id and r.usersid=#{id}  order by d.balancedate desc
     </select>
     <select id="Total" resultType="java.lang.Integer">
-       select count(1) from client c,type y,role  r, user u,user_role s,region r1,region r2,region r3 where c.typeid=y.id and  r.roleid=s.roleid and u.id =s.userid and  c.province=r1.id and r1.id=r2.pid and r2.id=r3.pid and c.userid=u.id
+         select count(1) from client c,role  r, user u1,user u2,user u3,user_role s,region r1,region r2,region r3 where  r.roleid=s.roleid and u1.id =s.userid and  c.capitalid=r1.id and c.cityid=r2.id and c.districtid=r3.id and r1.id=r2.pid and r2.id=r3.pid and c.traderid=u1.id  and c.salesmanid=u2.id and c.agentid=u3.id
     </select>
     <select id="Trader" resultType="com.zhj.model.User">
    	select u.name from role  r, user u,user_role s where  r.roleid=s.roleid and u.id =s.userid  and r.roleid=1

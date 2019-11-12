@@ -14,14 +14,117 @@ public class Client implements Serializable {
     private  Integer id; //主键
     private  Integer province;//省份
     private  String customername; //客户名称
-    private  Integer typeid; //用户类型id
     private  Integer traderid;//交易id
     private  Integer agentid;//代理商id
     private  Integer salesmanid;//销售id
-    private  String typename;//类型名称(零时使用字段)
-    private  String  name;//用户名称(零时使用字段)
-    private  String  phone;//用户电话(零时使用字段)
-    private  String  rolename;//角色名称(零时使用字段)
+    private  Integer capitalid;//省关联id
+    private  Integer cityid;//市关联id
+    private  Integer districtid;//区关联id
+    private  String  trader;//交易员名称(零时使用字段)
+    private  String  traderphone;//交易员电话(零时使用字段)
+    private  String salesman;//销售(零时使用字段)
+    private  String salesmanphone;//销售电话(零时使用字段)
+    private  String agent;//代理商(零时使用字段)
+    private  String agentphone;//代理商电话(零时使用字段)
+    private  String city;//市(零时使用字段)
+    private  String capital;//省(零时使用字段)
+    private  String district;//区(零时使用字段)
+
+    public Integer getCapitalid() {
+        return capitalid;
+    }
+
+    public void setCapitalid(Integer capitalid) {
+        this.capitalid = capitalid;
+    }
+
+    public Integer getCityid() {
+        return cityid;
+    }
+
+    public void setCityid(Integer cityid) {
+        this.cityid = cityid;
+    }
+
+    public Integer getDistrictid() {
+        return districtid;
+    }
+
+    public void setDistrictid(Integer districtid) {
+        this.districtid = districtid;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCapital() {
+        return capital;
+    }
+
+    public void setCapital(String capital) {
+        this.capital = capital;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getTrader() {
+        return trader;
+    }
+
+    public void setTrader(String trader) {
+        this.trader = trader;
+    }
+
+    public String getTraderphone() {
+        return traderphone;
+    }
+
+    public void setTraderphone(String traderphone) {
+        this.traderphone = traderphone;
+    }
+
+    public String getSalesman() {
+        return salesman;
+    }
+
+    public void setSalesman(String salesman) {
+        this.salesman = salesman;
+    }
+
+    public String getSalesmanphone() {
+        return salesmanphone;
+    }
+
+    public void setSalesmanphone(String salesmanphone) {
+        this.salesmanphone = salesmanphone;
+    }
+
+    public String getAgent() {
+        return agent;
+    }
+
+    public void setAgent(String agent) {
+        this.agent = agent;
+    }
+
+    public String getAgentphone() {
+        return agentphone;
+    }
+
+    public void setAgentphone(String agentphone) {
+        this.agentphone = agentphone;
+    }
 
     public Integer getTraderid() {
         return traderid;
@@ -47,32 +150,6 @@ public class Client implements Serializable {
         this.salesmanid = salesmanid;
     }
 
-    public String getRolename() {
-        return rolename;
-    }
-
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
-    }
-
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -95,22 +172,6 @@ public class Client implements Serializable {
 
     public void setCustomername(String customername) {
         this.customername = customername;
-    }
-
-    public Integer getTypeid() {
-        return typeid;
-    }
-
-    public void setTypeid(Integer typeid) {
-        this.typeid = typeid;
-    }
-
-    public String getTypename() {
-        return typename;
-    }
-
-    public void setTypename(String typename) {
-        this.typename = typename;
     }
 
 
