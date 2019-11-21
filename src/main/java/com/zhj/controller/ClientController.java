@@ -36,7 +36,7 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    //客户列表查询//
+    //客户列表查询
     @RequestMapping("Query")
     @ResponseBody
     public Map Query(@RequestBody ParamUtil param){
@@ -46,7 +46,6 @@ public class ClientController {
     @RequestMapping("Add")
     @ResponseBody
     public String Query(@RequestBody Client c){
-        System.out.println("=========="+c);
         if(c.getId()==null){
             try {
                 clientService.Add(c);
