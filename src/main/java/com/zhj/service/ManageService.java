@@ -1,6 +1,7 @@
 package com.zhj.service;
 
 import com.zhj.model.Declare;
+import com.zhj.model.Users;
 import com.zhj.util.ParamUtil;
 
 import java.util.List;
@@ -24,5 +25,15 @@ public interface ManageService {
 
     void BatchDelete(String[] id);
 
-    List<Declare> query(Integer id);
+    List<Declare> query();
+
+    void Status(String[] id,Integer status);
+
+    List<Users> QueryUsers();
+
+    List<Declare> QueryDeclare(Integer id);
+
+    Integer queryRegionIdByName(String calculate);
+
+    void saveDeclare(Declare declare);
 }

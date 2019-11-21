@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhj.dao.DealDao">
  <insert id="Add">
-     inset into deal() values()
+     insert into deal(balancedate,customerid,electric,practical,power,deviationratio,assess,deviation,userfees,companyexpense,discount,totaldiscount,remake,bias,area) values(#{balancedate},#{customerid},#{electric},#{practical},#{power},#{deviationratio},#{assess},#{deviation},#{userfees},#{companyexpense},#{discount},#{totaldiscount},#{remake},#{bias},#{area})
  </insert>
     <update id="Update">
-        update deal set
+     update deal set balancedate=#{balancedate},customerid=#{customerid},electric=#{electric},practical=#{practical},power=#{power},deviationratio=#{deviationratio},assess=#{assess},deviation=#{deviation},userfees=#{userfees},companyexpense=#{companyexpense},discount=#{discount},totaldiscount=#{totaldiscount},remake=#{remake},bias=#{bias}  where id=#{id}
     </update>
     <delete id="Delete">
         delete  from  deal where id=#{id}
@@ -16,12 +16,37 @@
             #{id}
         </foreach>
     </delete>
-    <select id="Query" resultType="com.zhj.model.Declare">
-    select * from deal where 
-    <if test="p.customername!=null and p.customername">
-       and  customername like  CONCAT('%',#{p.customername},'%')
-    </if>
+    <select id="Query" resultType="com.zhj.model.Deal" >
+        select * from deal d, client c,region r where d.customerid=c.id and  d.area=r.id
+   <if test="p.customername!=null and p.customername!=''">
+       and c.customername  like #{p.customername}
+   </if>
+   <if test="p.capital !=null and p.capital!=''">
+       and  d.area =#{p.capital}
+   </if>
+   <if test="p.datetime !=null and p.datetime !=''">
+       and  d.balancedate =#{p.datetime}
+   </if>
+   order by d.id desc
     limit #{page},#{rows}
+    </select>
+    <select id="Total" resultType="java.lang.Integer">
+         select count(*) from deal d, client c where d.customerid=c.id
+    </select>
+    <select id="queryRegionIdByName" resultType="java.lang.Integer">
+        select  id from client where customername=#{customername}
+    </select>
+    <select id="queryClientByName" resultType="java.lang.Integer">
+        select  id from region where region=#{region}
+    </select>
+    <insert id="saveDeal">
+        insert into deal(balancedate,customerid,electric,practical,power,deviationratio,deviation,userfees,companyexpense,discount,totaldiscount,remake,bias,area)  values(#{balancedate},#{customerid},#{electric},#{practical},#{power},#{deviationratio},#{deviation},#{userfees},#{companyexpense},#{discount},#{totaldiscount},#{remake},#{bias},#{area})
+    </insert>
+    <select id="QueryDeal" resultType="com.zhj.model.Deal">
+   select * from deal d, client c,region r where d.customerid=c.id and  d.area=r.id and d.id=#{id}
+    </select>
+    <select id="QueryClient" resultType="com.zhj.model.Client">
+        select  id,customername from client
     </select>
 
 </mapper>

@@ -113,7 +113,6 @@ public class Users implements Serializable {
         this.lasttime = lasttime;
     }
 
-
     public Integer getStatus() {
         return status;
     }

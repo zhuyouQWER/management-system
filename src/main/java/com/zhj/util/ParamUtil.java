@@ -1,6 +1,10 @@
 package com.zhj.util;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author ： 朱福
@@ -25,7 +29,7 @@ public class ParamUtil implements Serializable {
     private  Integer trader;//交易员
     private  Integer id;//公众号修改状态id
     private  Integer state;//是否启用
-    private  Integer sort;//排序
+    private  String sort;//排序
     private String time;//时间
     private String date;//导出时间
     private String oldpassword;//旧密码
@@ -34,6 +38,17 @@ public class ParamUtil implements Serializable {
     private  String firm;//客户企业名称
     private  Integer capital;//省
     private  Integer city;//市
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date datetime;//交易结算日期
+
+    public Date getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(Date datetime) {
+        this.datetime = datetime;
+    }
 
     public Integer getCapital() {
         return capital;
@@ -99,11 +114,11 @@ public class ParamUtil implements Serializable {
         this.time = time;
     }
 
-    public Integer getSort() {
+    public String getSort() {
         return sort;
     }
 
-    public void setSort(Integer sort) {
+    public void setSort(String sort) {
         this.sort = sort;
     }
 

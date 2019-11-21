@@ -25,13 +25,13 @@ public class UserServiceImpl implements UserService{
 
 
 
-    @Override
+  /*  @Override
     public void Update(Integer id) {
         Date da=new Date();
         SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String time=sim.format(da);
         userDao.Update(id,time);
-    }
+    }*/
 
     @Override
     public List<Jurisdiction> Tree(Integer id) {
@@ -53,6 +53,8 @@ public class UserServiceImpl implements UserService{
         String time=sim.format(da);
         //u.getThistime(time);
      //u.getLasttime(time);
+        u.setTypeid(1);
+        u.setStatus(1);
         userDao.AddUser(u);
     }
 
@@ -63,6 +65,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void UpdateUser(Users u) {
+        u.setStatus(1);
+        u.setTypeid(1);
         userDao.UpdateUser(u);
     }
 
@@ -210,6 +214,11 @@ public class UserServiceImpl implements UserService{
         }else{
             userDao.status(param.getStatus(),param.getId());
         }
+    }
+
+    @Override
+    public List<Client> QueryClient() {
+        return userDao.QueryClient();
     }
 
 }

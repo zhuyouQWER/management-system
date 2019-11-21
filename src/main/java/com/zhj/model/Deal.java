@@ -1,10 +1,6 @@
 package com.zhj.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author ： 朱福
@@ -16,11 +12,8 @@ import java.util.Date;
 public class Deal implements Serializable {
     private static final long serialVersionUID = 1562364526537211258L;
     private Integer id;//主键
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") // 处理从	前端到后端的时间
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")// 处理从	后端到前端的时间
-    private Date balancedate;//结算日期
-    private String customername;//客户名称
-    private String area;//区域
+    private String balancedate;//结算日期
+    private Integer customerid;//客户关联id
     private double electric;//交易电量
     private double practical;//实际交易电量
     private double power;//偏差电量
@@ -33,9 +26,28 @@ public class Deal implements Serializable {
     private double totaldiscount;//合计优惠金额
     private String remake;//备注
     private  double bias;//允许偏差电量
+    private  Integer area;//地区关联id
     private  Integer declareid;//申报id
     private  String electro;//申报电量(零时字段)
     private  Integer userid;//公众号用户id(零时字段)
+    private  String  customername;//客户名称(零时字段)
+    private  String region;//地区;
+
+    public Integer getArea() {
+        return area;
+    }
+
+    public void setArea(Integer area) {
+        this.area = area;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
 
     public Integer getUserid() {
         return userid;
@@ -77,12 +89,16 @@ public class Deal implements Serializable {
         this.id = id;
     }
 
-    public Date getBalancedate() {
+    public String getBalancedate() {
         return balancedate;
     }
 
-    public void setBalancedate(Date balancedate) {
+    public void setBalancedate(String balancedate) {
         this.balancedate = balancedate;
+    }
+
+    public Integer getCustomerid() {
+        return customerid;
     }
 
     public String getCustomername() {
@@ -93,12 +109,8 @@ public class Deal implements Serializable {
         this.customername = customername;
     }
 
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
+    public void setCustomerid(Integer customerid) {
+        this.customerid = customerid;
     }
 
     public double getElectric() {
@@ -189,24 +201,5 @@ public class Deal implements Serializable {
         this.remake = remake;
     }
 
-    @Override
-    public String toString() {
-        return "Deal{" +
-                "id=" + id +
-                ", balancedate=" + balancedate +
-                ", customername='" + customername + '\'' +
-                ", area='" + area + '\'' +
-                ", electric=" + electric +
-                ", practical=" + practical +
-                ", power=" + power +
-                ", deviationratio=" + deviationratio +
-                ", assess=" + assess +
-                ", deviation=" + deviation +
-                ", userfees=" + userfees +
-                ", companyexpense=" + companyexpense +
-                ", discount=" + discount +
-                ", totaldiscount=" + totaldiscount +
-                ", remake='" + remake + '\'' +
-                '}';
-    }
+
 }

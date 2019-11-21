@@ -1,8 +1,10 @@
 package com.zhj.service;
 
+import com.zhj.model.Client;
 import com.zhj.model.Deal;
 import com.zhj.util.ParamUtil;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,4 +25,14 @@ public interface DealService {
 
 
     Map Query(ParamUtil param);
+
+    int queryRegionIdByName(String customername);
+
+    int queryClientByName(String region);
+
+    void saveDeal(Deal deal);
+
+    List<Deal> QueryDeal(Integer id);
+
+    List<Client> QueryClient();
 }

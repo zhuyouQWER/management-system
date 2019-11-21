@@ -17,7 +17,7 @@ public interface UserService {
 
 
 
-    void Update(Integer id);
+/*    void Update(Integer id);*/
 
     List<Jurisdiction> Tree(Integer id);
 
@@ -70,4 +70,6 @@ public interface UserService {
     void BatchDeleteDepartment(String[] id);
 
     void Status(ParamUtil param);
+
+    List<Client> QueryClient();
 }

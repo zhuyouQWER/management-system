@@ -91,6 +91,11 @@
       <version>${jsp-api.version}</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>${commons-fileupload.version}</version>
+    </dependency>
     <!-- Mybatis -->
     <dependency>
       <groupId>org.mybatis</groupId>

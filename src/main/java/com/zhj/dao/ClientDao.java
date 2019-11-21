@@ -3,9 +3,7 @@ package com.zhj.dao;
 import com.zhj.model.*;
 import com.zhj.util.ParamUtil;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,7 +22,7 @@ public interface ClientDao {
 
     void BatchDelete(String[] id);
 
-    List<Deal> QueryUsers(@Param("s") String s);
+    List<Deal> QueryUsers(@Param("s") String s,@Param("id") Integer id);
 
     Users Password(@Param("oldpassword") String oldpassword, @Param("id") Integer id);
 
@@ -62,4 +60,12 @@ public interface ClientDao {
     List<User> Salesman();
 
     List<User> Agent();
+
+    List<Client> QueryClient(Integer id);
+
+    List<Region> Linkage();
+
+    int queryRegionIdByName(Region region);
+
+    int saveClient(Client client);
 }

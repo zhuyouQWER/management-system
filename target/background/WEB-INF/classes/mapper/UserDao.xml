@@ -4,21 +4,18 @@
 <select id="LoginUser" resultType="com.zhj.model.User">
   select  *  from  user where username=#{username} and password=#{password}
   </select>
-   <update id="Update">
-    update  users set thistime=#{time} where id=#{id}
- </update>
    <select id="Tree" resultType="com.zhj.model.Jurisdiction">
      select j.* from user u, user_role s, role r,role_jurisdiction o,jurisdiction j where u.id=s.userid and r.roleid=s.roleid and o.roleid=s.roleid and o.jurisdictionid=j.id and u.id=#{id}
     </select>
     <select id="Total" resultType="java.lang.Integer">
-        select count(*) from users u,type t where u.typeid=t.id
+        select count(*) from users u,type t,client c where  u.typeid=t.id and u.enterpriseid=c.id
     </select>
     <insert id="AddUser">
-        insert  into  users(id,calculate,name,cellphone,typeid,enterpriseid,password,thistime,lasttime,status,region) values(#{id},#{calculate},#{name},#{cellphone},#{typeid},#{enterpriseid},#{password},#{thistime},#{lasttime},#{status},#{region})
+        insert  into  users(id,calculate,name,cellphone,typeid,enterpriseid,password,thistime,lasttime,status) values(#{id},#{calculate},#{name},#{cellphone},#{typeid},#{enterpriseid},#{password},#{thistime},#{lasttime},#{status})
     </insert>
       <select id="Query" resultType="com.zhj.model.Users">
-             select * from users u,type t,client c where  u.typeid=t.id and u.enterpriseid=c.id and u.id=#{id}
-        </select>
+      select * from users u,type t,client c where  u.typeid=t.id and u.enterpriseid=c.id and u.id=#{id}
+      </select>
     <update id="UpdateUser">
         update users set calculate=#{calculate},name=#{name},cellphone=#{cellphone},typeid=#{typeid},enterpriseid=#{enterpriseid},password=#{password},status=#{status} where id=#{id}
     </update>
@@ -33,7 +30,7 @@ select * from users where password=#{password} and cellphone=#{cellphone}
   <select id="QueryUser" resultType="com.zhj.model.Users">
         select * from users u,type t,client c where  u.typeid=t.id and u.enterpriseid=c.id
         <if test="p.enterprise!=null and p.enterprise != ''">
-            and c.enterprise like  #{p.enterprise}
+            and c.customername like  #{p.enterprise}
         </if>
         <if test="p.name!=null and p.name!=''">
             and  u.name like #{p.name}
@@ -41,7 +38,7 @@ select * from users where password=#{password} and cellphone=#{cellphone}
         <if test="p.status!=null and p.status !=0">
             and  u.status=#{p.status}
         </if>
-        group  by u.thistime #{p.sort}
+      order  by u.thistime  ${p.sort}
         limit #{page},#{rows}
     </select>
     <select id="query" resultType="com.zhj.model.User">
@@ -123,4 +120,7 @@ select * from users where password=#{password} and cellphone=#{cellphone}
     <update id="status">
       update  users set status=#{status} where id=#{id}
     </update>
+    <select id="QueryClient" resultType="com.zhj.model.Client">
+     select id,customername from client
+    </select>
 </mapper>

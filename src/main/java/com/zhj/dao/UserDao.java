@@ -3,7 +3,6 @@ package com.zhj.dao;
 import com.zhj.model.*;
 import com.zhj.util.ParamUtil;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
 public interface UserDao {
 
 
-    void Update(@Param("id") Integer id, @Param("time") String time);
+  /*  void Update(@Param("id") Integer id, @Param("time") String time);*/
 
     List<Jurisdiction> Tree(Integer id);
 
@@ -81,4 +80,6 @@ public interface UserDao {
     void Status(@Param("status") Integer status,@Param("id") Integer id);
 
     void status(@Param("status")Integer status, @Param("id")Integer id);
+
+    List<Client> QueryClient();
 }

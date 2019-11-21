@@ -12,23 +12,20 @@ import java.io.Serializable;
 public class Client implements Serializable {
     private static final long serialVersionUID = -8796712011181718822L;
     private  Integer id; //主键
-    private  Integer province;//省份
+    private  Integer province;//省份id
     private  String customername; //客户名称
     private  Integer traderid;//交易id
     private  Integer agentid;//代理商id
     private  Integer salesmanid;//销售id
     private  Integer capitalid;//省关联id
-    private  Integer cityid;//市关联id
-    private  Integer districtid;//区关联id
     private  String  trader;//交易员名称(零时使用字段)
     private  String  traderphone;//交易员电话(零时使用字段)
     private  String salesman;//销售(零时使用字段)
     private  String salesmanphone;//销售电话(零时使用字段)
     private  String agent;//代理商(零时使用字段)
     private  String agentphone;//代理商电话(零时使用字段)
-    private  String city;//市(零时使用字段)
-    private  String capital;//省(零时使用字段)
-    private  String district;//区(零时使用字段)
+    private  String region;//省(零时使用字段)
+
 
     public Integer getCapitalid() {
         return capitalid;
@@ -38,44 +35,12 @@ public class Client implements Serializable {
         this.capitalid = capitalid;
     }
 
-    public Integer getCityid() {
-        return cityid;
+    public String getRegion() {
+        return region;
     }
 
-    public void setCityid(Integer cityid) {
-        this.cityid = cityid;
-    }
-
-    public Integer getDistrictid() {
-        return districtid;
-    }
-
-    public void setDistrictid(Integer districtid) {
-        this.districtid = districtid;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCapital() {
-        return capital;
-    }
-
-    public void setCapital(String capital) {
-        this.capital = capital;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public String getTrader() {

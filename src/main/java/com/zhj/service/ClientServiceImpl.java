@@ -2,10 +2,8 @@ package com.zhj.service;
 
 import com.zhj.dao.ClientDao;
 import com.zhj.model.*;
-
 import com.zhj.util.LikeUtil;
 import com.zhj.util.ParamUtil;
-import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,13 +47,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<Deal> QueryUsers(String da) {
+    public List<Deal> QueryUsers(String da,Integer id) {
         SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM");
         ParsePosition pos = new ParsePosition(0);
         Date parse = sim.parse(da, pos);
         String format = sim.format(parse);
         String s = LikeUtil.LikeCha(format);
-        return clientDao.QueryUsers(s);
+        return clientDao.QueryUsers(s,id);
     }
 
 
@@ -91,6 +89,11 @@ public class ClientServiceImpl implements ClientService {
         String s = LikeUtil.LikeCha(param.getFirm());
         param.setFirm(s);
         List<Client> users=clientDao.Query(page,param.getSize(),param);
+        for (Client c:users){
+            if(c.getRegion()==null){
+
+            }
+        }
         Map ma=new HashMap();
         ma.put("total",total);
         ma.put("data",users);
@@ -168,5 +171,23 @@ public class ClientServiceImpl implements ClientService {
         return clientDao.Agent();
     }
 
+    @Override
+    public List<Client> QueryClient(Integer id) {
+        return clientDao.QueryClient(id);
+    }
 
+    @Override
+    public List<Region> Linkage() {
+        return clientDao.Linkage();
+    }
+
+    public int queryRegionIdByName(Region region){
+        int i = clientDao.queryRegionIdByName(region);
+        return i;
+    }
+
+    public int saveClinet(Client client) {
+        int i = clientDao.saveClient(client);
+        return i;
+    }
 }

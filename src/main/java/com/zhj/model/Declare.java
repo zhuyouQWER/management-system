@@ -17,8 +17,12 @@ public class Declare implements Serializable {
     private static final long serialVersionUID = -5034938057924838369L;
     private  Integer id; //主键
     private  String declaretime; //申报日期
-    private  String electrotime; //用电日期
-    private  String electrotimeho;//用电日期后面
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date electrotime; //用电日期
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private  Date electrotimeho;//用电日期后面
     private  Integer electro; //申报电量
     private  Integer days; //当月正常生产天数
     private  String lastmonth; //同上月相比
@@ -26,21 +30,19 @@ public class Declare implements Serializable {
     private  String explai; //补充说明
     private  Integer status; //状态  1是已申报  2是未申报   3是未开始
     private  Integer usersid;//公众号用户id
-    private  Integer clientid;//客户管理关联id
     private  Integer comparison;//同上月相比和去年相比的状态  1是同上月相比2是和去年同月相比
     private  String  type;//同比上涨下降类型字段   1是增加15以上 2是增加5-15 3是持平 4是减少15以上  5是减少5-15
     private  String  name;//公众号名称(零时字段)
     private String calculate;//公众号账号(零时字段)
-    private  String customername;//客户名称(零时字段)
+    private  String customername; //客户名称(零时字段)
 
-    public String getElectrotimeho() {
-        return electrotimeho;
+    public String getCustomername() {
+        return customername;
     }
 
-    public void setElectrotimeho(String electrotimeho) {
-        this.electrotimeho = electrotimeho;
+    public void setCustomername(String customername) {
+        this.customername = customername;
     }
-
     public String getExplai() {
         return explai;
     }
@@ -55,22 +57,6 @@ public class Declare implements Serializable {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public Integer getClientid() {
-        return clientid;
-    }
-
-    public void setClientid(Integer clientid) {
-        this.clientid = clientid;
-    }
-
-    public String getCustomername() {
-        return customername;
-    }
-
-    public void setCustomername(String customername) {
-        this.customername = customername;
     }
 
     public Integer getComparison() {
@@ -97,12 +83,20 @@ public class Declare implements Serializable {
         this.declaretime = declaretime;
     }
 
-    public String getElectrotime() {
+    public Date getElectrotime() {
         return electrotime;
     }
 
-    public void setElectrotime(String electrotime) {
+    public void setElectrotime(Date electrotime) {
         this.electrotime = electrotime;
+    }
+
+    public Date getElectrotimeho() {
+        return electrotimeho;
+    }
+
+    public void setElectrotimeho(Date electrotimeho) {
+        this.electrotimeho = electrotimeho;
     }
 
     public Integer getElectro() {
@@ -177,25 +171,5 @@ public class Declare implements Serializable {
         this.usersid = usersid;
     }
 
-    @Override
-    public String toString() {
-        return "Declare{" +
-                "id=" + id +
-                ", declaretime=" + declaretime +
-                ", electrotime='" + electrotime + '\'' +
-                ", electro=" + electro +
-                ", days=" + days +
-                ", lastmonth='" + lastmonth + '\'' +
-                ", samemoth='" + samemoth + '\'' +
-                ", explain='" + explai + '\'' +
-                ", status=" + status +
-                ", usersid=" + usersid +
-                ", name='" + name + '\'' +
-                ", calculate='" + calculate + '\'' +
-                ", clientid=" + clientid +
-                ", customername='" + customername + '\'' +
-                ", comparison=" + comparison +
-                ", type='" + type + '\'' +
-                '}';
-    }
+
 }

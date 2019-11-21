@@ -4,15 +4,20 @@ import com.zhj.model.*;
 import com.zhj.service.ClientService;
 import com.zhj.util.ExportExcel;
 import com.zhj.util.ParamUtil;
+import com.zhj.util.ReadExcel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,9 +44,8 @@ public class ClientController {
     //客户列表新增、修改
     @RequestMapping("Add")
     @ResponseBody
-    public String Query(Client c){
+    public String Query(@RequestBody Client c){
         if(c.getId()==null){
-
             try {
                 clientService.Add(c);
                 return "1";
@@ -76,7 +80,7 @@ public class ClientController {
     //客户管理批删
     @RequestMapping("BatchDelete")
     @ResponseBody
-    public String BatchDelete(String[] id) {
+    public String BatchDelete(@RequestParam String[] id) {
         try {
             clientService.BatchDelete(id);
             return "1";
@@ -89,8 +93,9 @@ public class ClientController {
     //公众号结算查询
     @RequestMapping("QueryUsers")
     @ResponseBody
-    public List<Deal> QueryUsers(@RequestBody ParamUtil param){
-        return  clientService.QueryUsers(param.getTime());
+    public List<Deal> QueryUsers(@RequestBody ParamUtil param,HttpSession session){
+        Users users = (Users) session.getAttribute("users");
+        return  clientService.QueryUsers(param.getTime(),users.getId());
     }
     //公众号修改密码
     @RequestMapping("Password")
@@ -111,7 +116,7 @@ public class ClientController {
     }
     //导出excel方法 （数据库查询数据 使用封装工具类导出）
     @RequestMapping("exportExcel")
-    public void exportExcel(String date,HttpServletResponse response){
+    public void exportExcel(String date,HttpServletResponse response,HttpSession session){
         System.out.println(date+"111111111111111111111");
 
         //导出的excel的标题
@@ -120,9 +125,9 @@ public class ClientController {
         String[] rowName = {"序号","交易电量","实际用电量","偏差电量","偏差率","允许偏差电量(-2%、+6%)","考核执行偏差","偏差考核费用","用户偏差考核费用","代理售电公司考核费用","优惠金额","合计优惠金额","备注"};
         //导出的excel数据  定义list集合
         List<Object[]>  dataList = new ArrayList<Object[]>();
-
+        Users users = (Users) session.getAttribute("users");
         //查询的数据库的信息
-        List<Deal> list= clientService.QueryUsers(date); //查询
+        List<Deal> list= clientService.QueryUsers(date,users.getId()); //查询
 
         //循环数据库查到的信息
         for(Deal c:list){
@@ -231,5 +236,59 @@ public class ClientController {
         List<User> list = clientService.Agent();
         return list;
     }
+    //客户查询一条
+    @RequestMapping("QueryClient")
+    @ResponseBody
+    public List<Client> QueryClient(@RequestParam Integer id){
+
+            List<Client> list=clientService.QueryClient(id);
+            return list;
+    }
+   //省查询
+    @RequestMapping("Linkage")
+    @ResponseBody
+    public List<Region> Linkage(){
+        List<Region> list=clientService.Linkage();
+        return  list;
+    }
+   //客户资料导入
+    @RequestMapping("fileUpload")
+    @ResponseBody
+    public boolean  fileUpload(@RequestParam("file") CommonsMultipartFile file , HttpServletRequest request) throws IOException {
+        try {
+            String path =request.getSession().getServletContext().getRealPath(File.separator+"upload"+File.separator+file.getOriginalFilename());
+            File newFile=new File(path);
+            if(newFile.getParentFile().exists() == false){//判断上级目录是否是目录
+                newFile.getParentFile().mkdirs();
+            }
+            if(newFile.exists()){
+                newFile.delete();
+            }
+            //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
+            file.transferTo(newFile);
+            File f = new File(path);
+            List<List<Object>> excleDataList= ReadExcel.readExcel(f);
+            for(int i=1;i<excleDataList.size();i++){
+
+                Region region = new Region();
+                region.setRegion(excleDataList.get(i).get(0).toString());
+                int i1 = clientService.queryRegionIdByName(region);
+                Client client = new Client();
+                client.setCapitalid(i1);
+                client.setCustomername(excleDataList.get(i).get(1).toString());
+                int count = clientService.saveClinet(client);
+                Users users=new Users();
+
+            }
+            return true;
+        } catch (Exception e) {
+              e.printStackTrace();
+            System.out.println("导入数据异常！");
+        }
+        return   false;
+        
+
+    }
+
 }
   

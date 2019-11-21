@@ -3,7 +3,6 @@ package com.zhj.service;
 import com.zhj.model.*;
 import com.zhj.util.ParamUtil;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -23,11 +22,7 @@ public interface ClientService {
 
     void BatchDelete(String[] id);
 
-
-    List<Deal> QueryUsers(String da);
-
-
-
+    List<Deal> QueryUsers(String da,Integer id);
 
     void AddDeclare(Declare declare,Integer id);
 
@@ -56,4 +51,12 @@ public interface ClientService {
     List<User> Salesman();
 
     List<User> Agent();
+
+    List<Client> QueryClient(Integer id);
+
+    List<Region> Linkage();
+
+    int queryRegionIdByName(Region region);
+
+    int saveClinet(Client client);
 }

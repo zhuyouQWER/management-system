@@ -27,5 +27,23 @@ public interface ManageDao {
 
     void BatchDelete(String[] id);
 
-    List<Declare> query(Integer id);
+    List<Declare> query();
+
+    void add(Declare declare);
+
+    void update(Declare d);
+
+    void Status(String[] id);
+
+    void status(String[] id);
+
+    void statu(String[] id);
+
+    List<Users> QueryUsers();
+
+    List<Declare> QueryDeclare(Integer id);
+
+    Integer queryRegionIdByName(String calculate);
+
+    void saveDeclare(Declare declare);
 }

@@ -62,7 +62,6 @@ public class UserController {
          list = TreeUtil.getFatherNode(list);
          return list;
      }
-
      //公众号用户查询
      @RequestMapping("QueryUser")
      @ResponseBody
@@ -73,13 +72,12 @@ public class UserController {
      //公众号新增，修改
      @RequestMapping("AddUser")
      @ResponseBody
-    public String AddUser(Users u){
+    public String AddUser(@RequestBody Users u){
         if(u.getId()==null){
             try {
                 userService.AddUser(u);
-                userService.Update(u.getId());
                 return "1";
-            } catch (Exception e) {
+            } catch (Exception e){
                 e.printStackTrace();
                 return "2";
             }
@@ -330,4 +328,12 @@ public class UserController {
             return "2";
         }
     }
+    //所属企业查询
+@RequestMapping("QueryClient")
+@ResponseBody
+    public List<Client> QueryClient(){
+    List<Client> list=userService.QueryClient();
+        return list;
+}
+
 }

@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zhj.dao.ClientDao" >
 <insert id="Add">
-      insert into client(capitalid,customername,traderid,agentid,salesmanid,cityid,districtid) values(#{capitalid},#{customername},#{traderid},#{agentid},#{salesmanid},#{cityid},#{districtid})
+      insert into client(capitalid,customername,traderid,agentid,salesmanid) values(#{capitalid},#{customername},#{traderid},#{agentid},#{salesmanid})
   </insert>
   <update id="Update">
-      update  client set capitalid=#{capitalid},customername=#{customername},traderid=#{traderid},agentid=#{agentid},salesmanid=#{salesmanid},cityid=#{cityid},districtid=#{districtid} where id=#{id}
+      update  client set capitalid=#{capitalid},customername=#{customername},traderid=#{traderid},agentid=#{agentid},salesmanid=#{salesmanid} where id=#{id}
   </update>
   <delete id="Delete">
       delete  from  client where id=#{id}
@@ -17,9 +17,9 @@
         </foreach>
     </delete>
     <select id="QueryUsers" resultType="com.zhj.model.Deal">
-        select  *  from deal where
+        select * from deal d   where    d.customerid=(select u.enterpriseid from users u,client c  where u.enterpriseid=c.id  and u.id=#{id})
         <if test="s != null and s != '' ">
-          balancedate like #{s}
+       and    d.balancedate like #{s}
         </if>
     </select>
     <select id="Password" resultType="com.zhj.model.Users">
@@ -32,9 +32,30 @@
     insert into  declar(declaretime,electrotime,electro,days,samemoth,explai,status,usersid,electrotimeho) values(#{declaretime},#{electrotime},#{electro},#{days},#{samemoth},#{explai},#{status},#{usersid},#{electrotimeho})
  </insert>
     <select id="Query" resultType="com.zhj.model.Client">
-        select u1.name trader,u2.name agent,u3.name salesman,u1.phone traderphone,u2.phone agentphone,u3.phone salesmanphone,c.customername,r1.region capital,r2.region city,r3.region district from client c,role  r, user u1,user u2,user u3,user_role s,region r1 ,region r2 ,region r3  where  r.roleid=s.roleid and u1.id =s.userid and  c.capitalid=r1.id and c.cityid=r2.id and c.districtid=r3.id and r1.id=r2.pid and r2.id=r3.pid and c.traderid=u1.id  and c.salesmanid=u2.id and c.agentid=u3.id
+        select c.id,u1.name trader , u2.name salesman,u3.name agent, re.region region,u1.phone traderphone,u2.phone salesmanphone,u3.phone agentphone,c.customername from  client c
+
+        LEFT JOIN  role r
+
+        on  r.roleid = c.traderid
+
+        LEFT JOIN  user u1
+
+        on u1.id= c.traderid
+
+
+        LEFT JOIN user u2
+
+        on  c.agentid = u2.id
+
+        LEFT JOIN  user u3
+
+        on c.salesmanid = u3.id
+        LEFT JOIN  region re
+        on  re.id=c.capitalid
+         <where>
+
          <if test="p.salesman != null and p.salesman!=0">
-           and  c.salesmanid=#{p.salesman}
+            and c.salesmanid=#{p.salesman}
          </if>
          <if test="p.trader!=null and p.trader!=0">
              and c.traderid =#{p.trader}
@@ -43,14 +64,13 @@
              and c.agentid= #{p.agent}
         </if>
         <if test="p.capital !=null and p.capital!=0">
-            and c.capital=#{p.capital}
-        </if>
-        <if test="p.city!=null and p.city !=0">
-            and c.city=#{p.city}
+            and c.capitalid=#{p.capital}
         </if>
          <if test="p.firm!=null and p.firm !=''">
              and c.customername like #{p.firm}
-             </if>
+         </if>
+         </where>
+         order by c.id desc
         limit #{page},#{size}
     </select>
 <select id="Message" resultType="com.zhj.model.Users">
@@ -59,7 +79,7 @@
    select * from  users where  id=#{id}
     </select>
     <update id="OldPassword">
-        update  users set  password=#{password} where id=#{id}
+        update   users set  password=#{password} where id=#{id}
     </update>
     <select id="More" resultType="com.zhj.model.Deal">
      select * from deal d,declar r where d.declareid=r.id and r.usersid=#{id}
@@ -87,16 +107,68 @@ where d.balancedate>DATE_SUB(CURDATE(), INTERVAL 2 MONTH)and d.declareid=r.id an
           select * from deal d,declar r where d.declareid=r.id and r.usersid=#{id}  order by d.balancedate desc
     </select>
     <select id="Total" resultType="java.lang.Integer">
-         select count(1) from client c,role  r, user u1,user u2,user u3,user_role s,region r1,region r2,region r3 where  r.roleid=s.roleid and u1.id =s.userid and  c.capitalid=r1.id and c.cityid=r2.id and c.districtid=r3.id and r1.id=r2.pid and r2.id=r3.pid and c.traderid=u1.id  and c.salesmanid=u2.id and c.agentid=u3.id
+  select count(*) from  client c
+
+        LEFT JOIN  role r
+
+        on  r.roleid = c.traderid
+
+        LEFT JOIN  user u1
+
+        on u1.id= c.traderid
+
+
+        LEFT JOIN user u2
+
+        on  c.agentid = u2.id
+
+        LEFT JOIN  user u3
+
+        on c.salesmanid = u3.id
+        LEFT JOIN  region re
+        on  re.id=c.capitalid
+
     </select>
     <select id="Trader" resultType="com.zhj.model.User">
-   	select u.name from role  r, user u,user_role s where  r.roleid=s.roleid and u.id =s.userid  and r.roleid=1
+   	select u.name,u.id from role  r, user u,user_role s where  r.roleid=s.roleid and u.id =s.userid  and r.roleid=1
     </select>
     <select id="Salesman"  resultType="com.zhj.model.User">
-    select u.name from role  r, user u,user_role s where  r.roleid=s.roleid and u.id =s.userid  and r.roleid=2
+    select u.name,u.id from role  r, user u,user_role s where  r.roleid=s.roleid and u.id =s.userid  and r.roleid=2
     </select>
     <select id="Agent" resultType="com.zhj.model.User">
-         select u.name from role  r, user u,user_role s where  r.roleid=s.roleid and u.id =s.userid  and r.roleid=3
+         select u.name,u.id from role  r, user u,user_role s where  r.roleid=s.roleid and u.id =s.userid  and r.roleid=3
+    </select>
+    <select id="QueryClient"  resultType="com.zhj.model.Client">
+
+   select c.id,u1.name trader , u2.name agent ,u3.name salesman, re.region region,u1.phone traderphone,u2.phone salesmanphone,u3.phone agentphone,c.customername from  client c
+
+        LEFT JOIN  role r
+
+        on  r.roleid = c.traderid
+
+        LEFT JOIN  user u1
+
+        on u1.id= c.traderid
+
+
+        LEFT JOIN user u2
+
+        on  c.agentid = u2.id
+
+        LEFT JOIN  user u3
+
+        on c.salesmanid = u3.id
+        LEFT JOIN  region re
+        on  re.id=c.capitalid  where c.id=#{id}
+    </select>
+    <select id="Linkage" resultType="com.zhj.model.Region">
+     select * from region
     </select>
 
+    <select id="queryRegionIdByName" resultType="java.lang.Integer">
+     select  id from region where region = #{region}
+ </select>
+    <insert id="saveClient" parameterType="com.zhj.model.Client">
+    insert into client (capitalid,customername) values (#{capitalid},#{customername})
+</insert>
 </mapper>
