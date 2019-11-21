@@ -16,6 +16,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.Soundbank;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class ClientController {
     @RequestMapping("Add")
     @ResponseBody
     public String Query(@RequestBody Client c){
+        System.out.println("=========="+c);
         if(c.getId()==null){
             try {
                 clientService.Add(c);
