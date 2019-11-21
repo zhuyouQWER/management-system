@@ -46,7 +46,6 @@ public class ClientController {
     @RequestMapping("Add")
     @ResponseBody
     public String Query(@RequestBody Client c){
-        System.out.println("=============");
         if(c.getId()==null){
             try {
                 clientService.Add(c);
