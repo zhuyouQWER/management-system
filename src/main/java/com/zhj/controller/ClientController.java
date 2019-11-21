@@ -35,7 +35,7 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    //客户列表查询
+    //客户列表查询//
     @RequestMapping("Query")
     @ResponseBody
     public Map Query(@RequestBody ParamUtil param){
